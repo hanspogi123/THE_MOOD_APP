@@ -1,0 +1,13 @@
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:THEMOOD"
+       xmlns:logins="clr-namespace:THEMOOD.Logins"
+       x:Class="THEMOOD.AppShell"
+       Shell.FlyoutBehavior="Disabled">
+
+    <!-- Only show Login as the root content -->
+    <ShellContent
+        ContentTemplate="{DataTemplate logins:Login}"
+        Route="login" />
+
+</Shell>

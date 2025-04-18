@@ -1,0 +1,54 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:THEMOOD"
+             x:Class="THEMOOD.App">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="BaseButtonStyle" TargetType="Button">
+                <Setter Property="FontFamily" Value="GentySans" />
+                <Setter Property="FontSize" Value="17.5" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="WidthRequest" Value="260" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="BorderColor" Value="Black" />
+            </Style>
+
+            <Style x:Key="LightButtonStyle" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="TextColor" Value="Black" />
+            </Style>
+
+            <Style x:Key="DarkButtonStyle" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="Opacity" Value="0.55"/>
+            </Style>
+
+            <Style x:Key="BaseEntryStyle" TargetType="Entry">
+                <Setter Property="FontFamily" Value="Arial" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="WidthRequest" Value="250" />
+            </Style>
+
+            <Style x:Key="EmailEntryStyle" BasedOn="{StaticResource BaseEntryStyle}" TargetType="Entry">
+                <Setter Property="Placeholder" Value="Email" />
+                <Setter Property="TextColor" Value="Blue" />
+            </Style>
+
+            <Style x:Key="PasswordEntryStyle" BasedOn="{StaticResource BaseEntryStyle}" TargetType="Entry">
+                <Setter Property="Placeholder" Value="Password" />
+                <Setter Property="IsPassword" Value="True" />
+            </Style>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
