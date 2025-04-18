@@ -5,9 +5,19 @@
        x:Class="THEMOOD.AppShell"
        Shell.FlyoutBehavior="Disabled">
 
-    <!-- Only show Login as the root content -->
     <ShellContent
         ContentTemplate="{DataTemplate logins:Login}"
         Route="login" />
+
+    <TabBar Route="main">
+        <ShellContent
+            Title="Main"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="main" />
+    </TabBar>
+
+    <ShellContent
+        ContentTemplate="{DataTemplate logins:SignUp}"
+        Route="signup" />
 
 </Shell>

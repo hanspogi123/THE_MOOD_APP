@@ -2,7 +2,9 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:THEMOOD"
+             xmlns:converters="clr-namespace:THEMOOD.Converters"
              x:Class="THEMOOD.App">
+
     <Application.Resources>
         <ResourceDictionary>
 
@@ -10,7 +12,7 @@
                 <Setter Property="FontFamily" Value="GentySans" />
                 <Setter Property="FontSize" Value="17.5" />
                 <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="WidthRequest" Value="260" />
+                <Setter Property="WidthRequest" Value="250" />
                 <Setter Property="HeightRequest" Value="50" />
                 <Setter Property="CornerRadius" Value="10" />
                 <Setter Property="BorderWidth" Value="1" />
@@ -45,9 +47,13 @@
                 <Setter Property="IsPassword" Value="True" />
             </Style>
 
+            <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
+            <converters:BoolToOpacityConverter x:Key="BoolToOpacityConverter" />
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

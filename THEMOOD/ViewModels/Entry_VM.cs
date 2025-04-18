@@ -18,6 +18,9 @@ namespace THEMOOD.ViewModels
         [ObservableProperty]
         private string? password;
 
+        [ObservableProperty]
+        private string? name;
+
         public Entry_VM()
         {
         }
@@ -41,9 +44,15 @@ namespace THEMOOD.ViewModels
 
 
         [RelayCommand]
-        private async Task SignUpAsync()
+        private async Task SignUpLipatAsync()
         {
-            await Shell.Current.DisplayAlert("PEK", "Email and Password are required.", "OK");
+            await Shell.Current.GoToAsync("signup");
+        }
+
+        [RelayCommand]
+        private async Task LoginLipatAsync()
+        {
+            await Shell.Current.GoToAsync("//login");
         }
     }
 }

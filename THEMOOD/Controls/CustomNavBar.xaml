@@ -1,0 +1,105 @@
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:THEMOOD.ViewModels"
+             xmlns:converters="clr-namespace:THEMOOD.Converters"
+             x:Class="THEMOOD.Controls.CustomNavBar">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
+            <converters:BoolToOpacityConverter x:Key="BoolToOpacityConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <Grid x:Name="NavGrid" BackgroundColor="White" HeightRequest="65">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Spacing="4" Opacity="{Binding IsHomeActive, Converter={StaticResource BoolToOpacityConverter}}">
+            <Image Source="password1.png" HeightRequest="24" WidthRequest="24" />
+            <Label Text="Home" FontSize="14"
+                   TextColor="{Binding IsHomeActive, Converter={StaticResource BoolToColorConverter}, ConverterParameter='Black,Gray'}"
+                   HorizontalOptions="Center">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding IsHomeActive}" Value="True">
+                        <Setter Property="FontAttributes" Value="Bold" />
+                    </DataTrigger>
+                </Label.Triggers>
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToHomeCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="4" Opacity="{Binding IsWalletActive, Converter={StaticResource BoolToOpacityConverter}}">
+            <Image Source="password1.png" HeightRequest="24" WidthRequest="24" />
+            <Label Text="Wallet" FontSize="14"
+                   TextColor="{Binding IsWalletActive, Converter={StaticResource BoolToColorConverter}, ConverterParameter='Black,Gray'}"
+                   HorizontalOptions="Center">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding IsWalletActive}" Value="True">
+                        <Setter Property="FontAttributes" Value="Bold" />
+                    </DataTrigger>
+                </Label.Triggers>
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToWalletCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </VerticalStackLayout>
+
+        <Frame Grid.Column="2"
+               BackgroundColor="HotPink"
+               CornerRadius="60"
+               HeightRequest="80"
+               WidthRequest="80"
+               Padding="-5"
+               HasShadow="False"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               IsClippedToBounds="True">
+            <Grid>
+                <Image Source="logo_only.png" Aspect="AspectFit" HorizontalOptions="Fill" VerticalOptions="Fill" />
+            </Grid>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding NavigateToTransferCommand}" />
+            </Frame.GestureRecognizers>
+        </Frame>
+
+        <VerticalStackLayout Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center" Spacing="4" Opacity="{Binding IsActivityActive, Converter={StaticResource BoolToOpacityConverter}}">
+            <Image Source="password1.png" HeightRequest="24" WidthRequest="24" />
+            <Label Text="Activity" FontSize="14"
+                   TextColor="{Binding IsActivityActive, Converter={StaticResource BoolToColorConverter}, ConverterParameter='Black,Gray'}"
+                   HorizontalOptions="Center">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding IsActivityActive}" Value="True">
+                        <Setter Property="FontAttributes" Value="Bold" />
+                    </DataTrigger>
+                </Label.Triggers>
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToActivityCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Column="4" HorizontalOptions="Center" VerticalOptions="Center" Spacing="4" Opacity="{Binding IsProfileActive, Converter={StaticResource BoolToOpacityConverter}}">
+            <Image Source="password1.png" HeightRequest="24" WidthRequest="24" />
+            <Label Text="Profile" FontSize="14"
+                   TextColor="{Binding IsProfileActive, Converter={StaticResource BoolToColorConverter}, ConverterParameter='Black,Gray'}"
+                   HorizontalOptions="Center">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding IsProfileActive}" Value="True">
+                        <Setter Property="FontAttributes" Value="Bold" />
+                    </DataTrigger>
+                </Label.Triggers>
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToProfileCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </VerticalStackLayout>
+    </Grid>
+</ContentView>

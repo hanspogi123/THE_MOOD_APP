@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="THEMOOD.Logins.SignUp"
+             xmlns:vm="clr-namespace:THEMOOD.ViewModels" 
+             BackgroundImageSource="singup_bg.png"
+             Title="SignUp"
+             Shell.NavBarIsVisible="False">
+    
+    <ContentPage.BindingContext>
+        <vm:Entry_VM/>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30,100,30,30" Spacing="17">
+            
+            <!-- Create Text -->
+            <VerticalStackLayout>
+                <Label Text="Create"
+                   FontFamily="GentySans"
+                   FontSize="38"
+                   TextColor="Black" />
+                <Label Text="Account"
+                   FontFamily="GentySans"
+                   FontSize="38"
+                   TextColor="Black" />
+            </VerticalStackLayout>
+
+            <!-- Spacer to move other controls lower -->
+            <BoxView HeightRequest="20" BackgroundColor="Transparent" Color="Transparent" Opacity="0" />
+
+            <!-- Name Field -->
+            <Grid ColumnDefinitions="40,*,30" VerticalOptions="Center" HeightRequest="50">
+                <Image Source="name1.png"
+                       Grid.Column="0"
+                       HeightRequest="24"
+                       WidthRequest="24"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"/>
+                <Entry Grid.Column="1"
+                       Text="{Binding Email}"
+                       TextColor="Black"
+                       Placeholder="Name"
+                       Style="{StaticResource BaseEntryStyle}" />
+            </Grid>
+
+            <!-- Email Field -->
+            <Grid ColumnDefinitions="40,*,30" VerticalOptions="Center" HeightRequest="50">
+                <Image Source="envelope1.png"
+                   Grid.Column="0"
+                   HeightRequest="24"
+                   WidthRequest="24"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+                <Entry Grid.Column="1"
+                   Text="{Binding Email}"
+                   Style="{StaticResource EmailEntryStyle}" />
+            </Grid>
+
+            <!-- Password Field -->
+            <Grid ColumnDefinitions="40,*,30" VerticalOptions="Center" HeightRequest="50">
+                <Image Source="password1.png"
+                   Grid.Column="0"
+                   HeightRequest="24"
+                   WidthRequest="24"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+                <Entry Grid.Column="1"
+                   Text="{Binding Password}"
+                   TextColor="Black"
+                   Style="{StaticResource PasswordEntryStyle}" />
+            </Grid>
+
+            <BoxView HeightRequest="5" BackgroundColor="Transparent" Color="Transparent" Opacity="0" />
+
+            <!-- Sign Up Button -->
+            <Button Text="⭐  Sign Up"
+                    Command="{Binding SignUpLipatCommand}"
+                    Style="{StaticResource LightButtonStyle}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
+
+            <!-- OR Separator -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                <BoxView WidthRequest="120" HeightRequest="1" BackgroundColor="Black" VerticalOptions="Center"/>
+                <Label Text="or" FontFamily="Arial" FontSize="14" VerticalOptions="Center"/>
+                <BoxView WidthRequest="120" HeightRequest="1" BackgroundColor="Black" VerticalOptions="Center"/>
+            </HorizontalStackLayout>
+
+            <!-- Log in Button -->
+            <Button Text="⭐  Log in"
+                    Command="{Binding LoginLipatCommand}"
+                    Style="{StaticResource DarkButtonStyle}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

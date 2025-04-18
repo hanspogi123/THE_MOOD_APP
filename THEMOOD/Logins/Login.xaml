@@ -10,7 +10,6 @@
         <vm:Entry_VM/>
     </ContentPage.BindingContext>
     
-
     <ScrollView>
         <VerticalStackLayout Padding="30,100,30,30" Spacing="20">
 
@@ -61,7 +60,8 @@
             <!-- Log in Button -->
             <Button Text="⭐  Log in"
                     Command="{Binding LoginCommand}"
-                    Style="{StaticResource LightButtonStyle}" />
+                    Style="{StaticResource LightButtonStyle}"
+                    Padding="50,0"/>
 
             <!-- OR Separator -->
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
@@ -72,7 +72,7 @@
 
             <!-- Sign Up Button -->
             <Button Text="⭐  Sign Up"
-                    Command="{Binding SignUpCommand}"
+                    Command="{Binding SignUpLipatCommand}"
                     Style="{StaticResource DarkButtonStyle}"/>
 
         </VerticalStackLayout>
