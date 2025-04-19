@@ -12,6 +12,8 @@ namespace THEMOOD
             Routing.RegisterRoute("signup", typeof(SignUp));
             Routing.RegisterRoute("login", typeof(Login));
             //Routing.RegisterRoute("moodentry", typeof(MoodEntryPage));
+            Routing.RegisterRoute("MoodEntryPage", typeof(MoodEntryPage));
+            Routing.RegisterRoute("CalendarView", typeof(CalendarView));
             Shell.SetNavBarIsVisible(this, false);
 
         }

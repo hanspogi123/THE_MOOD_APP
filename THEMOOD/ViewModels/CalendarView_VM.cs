@@ -1,17 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using THEMOOD.Services;
 
 namespace THEMOOD.ViewModels
 {
-    public partial class CalendarView_VM:ObservableObject
+    public partial class CalendarView_VM : ObservableObject
     {
+        private readonly IMoodService _moodService;
+
+        public CalendarView_VM(IMoodService moodService)
+        {
+            _moodService = moodService;
+            LoadMonth(CurrentMonth);
+        }
+
+        // For design-time support
+        public CalendarView_VM()
+        {
+            _moodService = new DefaultMoodService();
+            LoadMonth(CurrentMonth);
+        }
+
         [ObservableProperty]
-        private DateTime selectedDate = DateTime.Today;
+        private DateTime currentMonth = DateTime.Today;
 
         [ObservableProperty]
         private ObservableCollection<DayMood> daysInMonth = new();
@@ -19,16 +35,11 @@ namespace THEMOOD.ViewModels
         [ObservableProperty]
         private string selectedFilter = "All";
 
-        public ObservableCollection<string> Filters { get; } = new()
+        public ObservableCollection<string> MoodFilters { get; } = new()
         {
             "All", "Happy", "Sad", "Anxious", "Angry", "Excited",
-            "Lonely", "Tired", "Motivated", "Stressed", "Bored"
+            "Lonely", "Tired", "Motivated", "Stressed", "Bored", "Okay"
         };
-
-        public CalendarView_VM()
-        {
-            LoadMonthCurrentMonth);
-        }
 
         [RelayCommand]
         private void NextMonth()
@@ -52,7 +63,7 @@ namespace THEMOOD.ViewModels
 
             await Application.Current.MainPage.DisplayAlert(
                 $"Mood on {day.Date.ToString("MMM dd")}",
-                $"Mood : {day.Mood}\nReason: {day.Reason}",
+                $"Mood: {day.Mood}\nReason: {day.Reason}",
                 "Close");
         }
 
@@ -68,18 +79,18 @@ namespace THEMOOD.ViewModels
                 { "SelectedDate", day.Date }
             };
 
-            await Shell.Current.GoToAsync("moodentry", parameters);
+            await Shell.Current.GoToAsync("//MoodEntryPage", parameters);
         }
 
         [RelayCommand]
-        private void FilterMoods(string filter)
+        private void FilterMoods()
         {
             LoadMonth(CurrentMonth);
         }
 
         private void LoadMonth(DateTime month)
         {
-            DaysInMonth.clear();
+            DaysInMonth.Clear();
 
             // Get first day of the month
             var firstDayOfMonth = new DateTime(month.Year, month.Month, 1);
@@ -89,19 +100,18 @@ namespace THEMOOD.ViewModels
 
             // Add empty slots for days before the first day of the month
             int firstDayOfWeek = (int)firstDayOfMonth.DayOfWeek;
-
-            // Add days of the month
             for (int i = 0; i < firstDayOfWeek; i++)
             {
                 DaysInMonth.Add(new DayMood { IsEmpty = true });
             }
 
-            for (int i = 1; i <= daysInMonth; i++)
+            // Add days of the month
+            for (int day = 1; day <= daysInMonth; day++)
             {
                 var currentDate = new DateTime(month.Year, month.Month, day);
                 var dayMood = GetMoodForDay(currentDate);
 
-                if(SelectedFilter == "All" || dayMood.Mood == SelectedFilter || !dayMood.HasMood)
+                if (SelectedFilter == "All" || dayMood.Mood == SelectedFilter || !dayMood.HasMood)
                 {
                     DaysInMonth.Add(dayMood);
                 }
@@ -113,50 +123,31 @@ namespace THEMOOD.ViewModels
                         Date = currentDate,
                         IsFiltered = true
                     };
-                    DaysInMonth.add(placeholder);
+                    DaysInMonth.Add(placeholder);
                 }
             }
         }
 
         private DayMood GetMoodForDay(DateTime date)
         {
+            var moodEntry = _moodService.GetMoodForDay(date);
 
-            // This would normally fetch from a database or storage service
-            // For demo purposes, we'll simulate some saved moods
-
-            // Example data - replace with your actual data access logic
-            var savedMoods = new List<DayMood>
+            if (moodEntry != null)
             {
-                new DayMood
+                return new DayMood
                 {
-                    Date = DateTime.Today.AddDays(-2),
-                    Mood = "Happy",
-                    Reason = "Had a great day at work!",
+                    Date = moodEntry.Date,
+                    Mood = moodEntry.Mood,
+                    Reason = moodEntry.Reason,
                     HasMood = true
-                },
-                new DayMood
-                {
-                    Date = DateTime.Today.AddDays(-1),
-                    Mood = "Sad",
-                    Reason = "Missed an important event.",
-                    HasMood = true
-                },
-                new DayMood
-                {
-                    Date = DateTime.Today,
-                    Mood = "Excited",
-                    Reason = "Going on a trip tomorrow!",
-                    HasMood = true
-                }
-            };
+                };
+            }
 
-            var mood = savedMoods.FirstOrDefault(m => m.Date.Date == date.Date);
-
-            return mood ?? new DayMood { Date = date, HasMood = false };
+            return new DayMood { Date = date, HasMood = false };
         }
     }
 
-    public class DayMood:ObservableObject
+    public class DayMood : ObservableObject
     {
         public DateTime Date { get; set; }
         public string Mood { get; set; }
@@ -169,7 +160,7 @@ namespace THEMOOD.ViewModels
         {
             get
             {
-                if(!HasMood)
+                if (!HasMood)
                     return "#EEEEEE";
 
                 return Mood switch
@@ -194,7 +185,7 @@ namespace THEMOOD.ViewModels
         {
             get
             {
-                if(!HasMood)
+                if (!HasMood)
                     return "😶";
 
                 return Mood switch

@@ -12,7 +12,7 @@
 
     <Grid RowDefinitions="Auto, Auto, *, Auto">
         <!-- Month Navigation -->
-        <Grid Grid.Row="0" ColumnDefinitions="Auto", *, Auto" Padding="20,10">
+        <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" Padding="20,10">
             <Button Grid.Column="0"
                       Text="&lt;"
                       Command="{Binding PreviousMonthCommand}"
@@ -42,7 +42,7 @@
             <Picker ItemsSource="{Binding MoodFilters}"
                     SelectedItem="{Binding SelectedFilter}"
                     WidthRequest="120"
-                    SelectedIndexChanged="MoodFiter_SelectedIndexChanged"/>
+                    SelectedIndexChanged="MoodFilter_SelectedIndexChanged"/>
         </HorizontalStackLayout>
 
         <!-- Days of Week Header -->
@@ -84,6 +84,13 @@
                                        VerticalOptions="Center"/>
                             </Frame>
 
+                            <Grid BackgroundColor="Transparent" Padding="5">
+                                <Label Text="{Binding Date.Day}"
+                                       VerticalOptions="Start"
+                                       HorizontalOptions="Start"
+                                       IsVisible="{Binding IsEmpty, Converter={StaticResource InverseBoolConverter}}" />
+                            </Grid>
+
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CalendarView_VM}}, Path=ViewDayDetailsCommand}"
@@ -99,7 +106,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Grid>
-        
+
         <!-- Navigation Bar -->
         <controls:CustomNavBar Grid.Row="3" x:Name="NavBar" />
     </Grid>
