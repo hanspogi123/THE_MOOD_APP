@@ -12,9 +12,13 @@ namespace THEMOOD.Controls
             InitializeComponent();
 
             // Assign the ViewModel or retrieve it from parent page
-            _viewModel = new NavBarViewModel();
+            _viewModel = NavBarViewModel.Instance;
             BindingContext = _viewModel;
+            SetupGestureRecognizers();
+        }
 
+        private void SetupGestureRecognizers()
+        {
             // Add gesture recognizers directly to the VerticalStackLayouts
             // Get each column's VerticalStackLayout
             if (NavGrid.Children[0] is VerticalStackLayout homeStack)
@@ -35,7 +39,7 @@ namespace THEMOOD.Controls
             if (NavGrid.Children[2] is Frame transferFrame)
             {
                 var transferRecognizer = new TapGestureRecognizer();
-                transferRecognizer.Tapped += (s, e) => _viewModel.NavigateToTransferCommand.Execute(null);
+                transferRecognizer.Tapped += (s, e) => _viewModel.NavigateToChatCommand.Execute(null);
                 transferFrame.GestureRecognizers.Add(transferRecognizer);
             }
 
@@ -53,6 +57,7 @@ namespace THEMOOD.Controls
                 profileStack.GestureRecognizers.Add(profileRecognizer);
             }
         }
+        
 
         // Add method to set the binding context from parent page
         public void SetViewModel(NavBarViewModel viewModel)

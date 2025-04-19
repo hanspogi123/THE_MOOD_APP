@@ -8,8 +8,9 @@ namespace THEMOOD
         {
             InitializeComponent();
 
-            // Connect the NavBar control with the ViewModel
-            NavBar.SetViewModel(NavViewModel);
+            // Connect the NavBar control with the singleton ViewModel
+            NavBar.SetViewModel(NavBarViewModel.Instance);
+            Shell.SetNavBarIsVisible(this, false);
         }
     }
 }

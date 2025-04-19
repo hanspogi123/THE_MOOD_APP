@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:THEMOOD.ViewModels"
+             xmlns:controls="clr-namespace:THEMOOD.Controls"
+             x:Class="THEMOOD.Pages.MoodEntryPage"
+             Title="Mood Entry">
+
+    <ContentPage.BindingContext>
+        <vm:MoodEntry_VM/>
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="*, Auto">
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Padding="20" Spacing="20">
+                <Label Text="{Binding IsEditing, StringFormat='{0}? Edit Mood Entry : New Mood Entry'}"
+                       FontSize="24"
+                       HorizontalOptions="Center" />
+
+                <Label Text="Select Date: "/>
+                <DatePicker Date="{Binding SelectedDate}" />
+
+                <Label Text="Select Your Mood: "/>
+                <Picker ItemsSource="{Binding Moods}"
+                        SelectedItem="{Binding SelectedMood}" />
+
+                <Label Text="Why do you feel this way?"/>
+                <Editor Placeholder="Type your reason here..."
+                        AutoSize="TextChanges"
+                        Text="{Binding MoodReason}"
+                        HeightRequest="100" />
+
+                <Button Text="Save Mood Entry"
+                        Command="{Binding SubmitCommand}"
+                        BackgroundColor="#32CD32" />
+
+                <Button Text="Delete"
+                        Command="{Binding DeleteCommand}"
+                        BackgroundColor="#FF6347"
+                        IsVisible="{Binding IsEditing}" />
+
+                <Button Text="Cancel"
+                        Command="{Binding CancelCommand}" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <controls:CustomNavBar Grid.Row="1" x:Name="NavBar" />
+    </Grid>
+</ContentPage>

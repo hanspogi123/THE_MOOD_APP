@@ -11,6 +11,13 @@ namespace THEMOOD.ViewModels
     public partial class NavBarViewModel : ObservableObject
     {
         // Using partial properties instead of [ObservableProperty] for AOT compatibility
+
+        private static NavBarViewModel _instance;
+        public static NavBarViewModel Instance => _instance ??= new NavBarViewModel();
+
+        // Make constructor private for singleton pattern
+        private NavBarViewModel() { }
+
         private bool _isHomeActive = true;
         public bool IsHomeActive
         {
@@ -62,7 +69,7 @@ namespace THEMOOD.ViewModels
         }
 
         [RelayCommand]
-        private Task NavigateToTransferAsync()
+        private Task NavigateToChatAsync()
         {
             // Transfer doesn't have an active state
             
@@ -82,7 +89,7 @@ namespace THEMOOD.ViewModels
             IsActivityActive = true;
             IsProfileActive = false;
 
-            return Shell.Current.GoToAsync("//main");
+            return Shell.Current.GoToAsync("//moodentry");
         }
 
         [RelayCommand]

@@ -24,8 +24,8 @@ namespace THEMOOD.Converters
         {
             return colorName switch
             {
-                "Black" => Colors.DeepPink,
-                "Gray" => Colors.Black,
+                "Black" => Colors.HotPink,
+                "Gray" => Colors.White,
                 "White" => Colors.White,
                 // Add more colors as needed
                 _ => Colors.Pink // Default

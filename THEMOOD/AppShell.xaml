@@ -2,13 +2,11 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:THEMOOD"
        xmlns:logins="clr-namespace:THEMOOD.Logins"
+       xmlns:pages="clr-namespace:THEMOOD.Pages"
        x:Class="THEMOOD.AppShell"
        Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        ContentTemplate="{DataTemplate logins:Login}"
-        Route="login" />
-
+   
     <TabBar Route="main">
         <ShellContent
             Title="Main"
@@ -17,7 +15,21 @@
     </TabBar>
 
     <ShellContent
+        ContentTemplate="{DataTemplate logins:Login}"
+        Route="login" />
+
+    <ShellContent
         ContentTemplate="{DataTemplate logins:SignUp}"
         Route="signup" />
+
+    <ShellContent Title="Mood Entry"
+              ContentTemplate="{DataTemplate pages:MoodEntryPage}"
+              Route="moodentry" />
+
+    <ShellContent
+        Title="Calendar"
+        ContentTemplate="{DataTemplate pages:CalendarView}"
+        Route="CalendarView" />
+
 
 </Shell>

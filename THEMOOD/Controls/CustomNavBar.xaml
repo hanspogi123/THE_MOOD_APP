@@ -1,4 +1,4 @@
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:THEMOOD.ViewModels"
              xmlns:converters="clr-namespace:THEMOOD.Converters"
@@ -11,7 +11,7 @@
         </ResourceDictionary>
     </ContentView.Resources>
 
-    <Grid x:Name="NavGrid" BackgroundColor="White" HeightRequest="65">
+    <Grid x:Name="NavGrid" BackgroundColor="Purple" HeightRequest="65">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
@@ -21,8 +21,8 @@
         </Grid.ColumnDefinitions>
 
         <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Spacing="4" Opacity="{Binding IsHomeActive, Converter={StaticResource BoolToOpacityConverter}}">
-            <Image Source="password1.png" HeightRequest="24" WidthRequest="24" />
-            <Label Text="Home" FontSize="14"
+            <Image Source="pinkhome.png" HeightRequest="24" WidthRequest="24" />
+            <Label Text="Home" FontSize="14" FontFamily="Genty Sans"
                    TextColor="{Binding IsHomeActive, Converter={StaticResource BoolToColorConverter}, ConverterParameter='Black,Gray'}"
                    HorizontalOptions="Center">
                 <Label.Triggers>
@@ -37,8 +37,8 @@
         </VerticalStackLayout>
 
         <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="4" Opacity="{Binding IsWalletActive, Converter={StaticResource BoolToOpacityConverter}}">
-            <Image Source="password1.png" HeightRequest="24" WidthRequest="24" />
-            <Label Text="Wallet" FontSize="14"
+            <Image Source="talk.png" HeightRequest="24" WidthRequest="24" />
+            <Label Text="Talk" FontSize="14" FontFamily="Genty Sans"
                    TextColor="{Binding IsWalletActive, Converter={StaticResource BoolToColorConverter}, ConverterParameter='Black,Gray'}"
                    HorizontalOptions="Center">
                 <Label.Triggers>
@@ -47,7 +47,7 @@
                     </DataTrigger>
                 </Label.Triggers>
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NavigateToWalletCommand}" />
+                    <TapGestureRecognizer Command="{Binding NavigateToChatCommand}" />
                 </Label.GestureRecognizers>
             </Label>
         </VerticalStackLayout>
@@ -71,8 +71,8 @@
         </Frame>
 
         <VerticalStackLayout Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center" Spacing="4" Opacity="{Binding IsActivityActive, Converter={StaticResource BoolToOpacityConverter}}">
-            <Image Source="password1.png" HeightRequest="24" WidthRequest="24" />
-            <Label Text="Activity" FontSize="14"
+            <Image Source="mood.png" HeightRequest="24" WidthRequest="24" />
+            <Label Text="Mood" FontFamily="Genty Sans" FontSize="14"
                    TextColor="{Binding IsActivityActive, Converter={StaticResource BoolToColorConverter}, ConverterParameter='Black,Gray'}"
                    HorizontalOptions="Center">
                 <Label.Triggers>
@@ -87,8 +87,8 @@
         </VerticalStackLayout>
 
         <VerticalStackLayout Grid.Column="4" HorizontalOptions="Center" VerticalOptions="Center" Spacing="4" Opacity="{Binding IsProfileActive, Converter={StaticResource BoolToOpacityConverter}}">
-            <Image Source="password1.png" HeightRequest="24" WidthRequest="24" />
-            <Label Text="Profile" FontSize="14"
+            <Image Source="meditation.png" HeightRequest="24" WidthRequest="24" />
+            <Label Text="Meditate" FontFamily="Genty Sans" FontSize="14"
                    TextColor="{Binding IsProfileActive, Converter={StaticResource BoolToColorConverter}, ConverterParameter='Black,Gray'}"
                    HorizontalOptions="Center">
                 <Label.Triggers>
