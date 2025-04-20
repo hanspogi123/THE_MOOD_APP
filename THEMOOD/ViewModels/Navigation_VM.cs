@@ -8,8 +8,11 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace THEMOOD.ViewModels
 {
+    
+
     public partial class NavBarViewModel : ObservableObject
     {
+        public static Action<Microsoft.Maui.Controls.View>? SetMainPageContent;
         // Using partial properties instead of [ObservableProperty] for AOT compatibility
 
         private static NavBarViewModel _instance;
@@ -89,7 +92,9 @@ namespace THEMOOD.ViewModels
             IsActivityActive = true;
             IsProfileActive = false;
 
-            return Shell.Current.GoToAsync("//moodentry");
+            SetMainPageContent?.Invoke(new THEMOOD.Pages.MoodEntryPage());
+
+            return Task.CompletedTask;
         }
 
         [RelayCommand]
@@ -100,7 +105,9 @@ namespace THEMOOD.ViewModels
             IsActivityActive = false;
             IsProfileActive = true;
 
-            return Shell.Current.GoToAsync("//main");
+            SetMainPageContent?.Invoke(new THEMOOD.Pages.Meditation());
+
+            return Task.CompletedTask;
         }
     }
 }

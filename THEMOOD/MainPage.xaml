@@ -6,20 +6,14 @@
              x:Class="THEMOOD.MainPage"
              BackgroundImageSource="mainpage_bg.png">
 
-    <!-- Remove this BindingContext -->
-    <!-- <ContentPage.BindingContext>
-        <viewmodels:NavBarViewModel x:Name="NavViewModel" />
-    </ContentPage.BindingContext> -->
 
     <Grid RowDefinitions="*, Auto">
-        <!-- Your main content goes here -->
-        <ScrollView Grid.Row="0">
-            <VerticalStackLayout Padding="20">
-                <!-- Other content -->
-            </VerticalStackLayout>
-        </ScrollView>
+        <!-- Dynamic Content Area -->
+        <ContentPresenter x:Name="MainContentArea" Grid.Row="0" />
 
-        <!-- Navigation Bar - Using the custom control -->
+        <!-- NavBar -->
         <controls:CustomNavBar Grid.Row="1" x:Name="NavBar" />
     </Grid>
+
+
 </ContentPage>

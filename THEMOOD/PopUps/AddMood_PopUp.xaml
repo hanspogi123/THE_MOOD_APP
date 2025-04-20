@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:pages="clr-namespace:THEMOOD.Pages"
+             x:Class="THEMOOD.PopUps.AddMood_PopUp">
+    
+    <VerticalStackLayout BackgroundColor="Pink"                       
+                         MinimumHeightRequest="400"
+                         MinimumWidthRequest="300"
+                         Padding="20"
+                         Spacing="30">
+        <Label 
+            Text="Date"
+            Margin="0,10,0,-35"
+            TextColor="Black" />
+
+        <DatePicker
+            TextColor="Black"
+            x:Name="MoodDatePicker" />
+
+        <Label 
+            Text="Mood"
+            Margin="0,0,0,-35"
+            TextColor="Black" />
+
+        <Picker
+            x:Name="MoodPicker"
+            TextColor="Black"
+            Title="Select Mood"
+            TitleColor="Black">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Happy</x:String>
+                    <x:String>Sad</x:String>
+                    <x:String>Angry</x:String>
+                    <x:String>Excited</x:String>
+                    <x:String>Relaxed</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+
+        <Label 
+            Text="Notes"
+            Margin="0,-10,0,-35"
+            TextColor="Black" />
+        <Entry
+            x:Name="MoodNotesEntry"
+            Placeholder="Why did you feel that mood that day?"
+            PlaceholderColor="Gray"/>
+
+        <Grid
+            ColumnDefinitions="*,*"
+            ColumnSpacing="10">
+
+            <!-- Cancel Button (Left) -->
+            <Button
+                Grid.Column="0"
+                Text="Cancel"
+                BackgroundColor="Red"
+                Clicked="CancelButton_Clicked"/>
+
+            <!-- Save Button (Right) -->
+            <Button
+                Grid.Column="1"
+                Text="Save"
+                BackgroundColor="Green"
+                Clicked="SaveButton_Clicked"/>
+        </Grid>
+
+
+    </VerticalStackLayout>
+    
+
+</toolkit:Popup>

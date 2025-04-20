@@ -2,6 +2,7 @@
 using THEMOOD.Services;
 using THEMOOD.ViewModels;
 using THEMOOD.Pages;
+using CommunityToolkit.Maui;
 
 namespace THEMOOD;
 
@@ -12,6 +13,7 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -23,11 +25,9 @@ public static class MauiProgram
 
         // Register view models
         builder.Services.AddTransient<MoodEntry_VM>();
-        builder.Services.AddTransient<CalendarView_VM>();
 
         // Register pages
         builder.Services.AddTransient<MoodEntryPage>();
-        builder.Services.AddTransient<CalendarView>();
 
 #if DEBUG
         builder.Logging.AddDebug();

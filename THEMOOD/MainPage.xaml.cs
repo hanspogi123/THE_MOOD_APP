@@ -1,16 +1,35 @@
 ﻿using THEMOOD.ViewModels;
+using THEMOOD.Services;
+using CommunityToolkit.Maui.Views;  
 
-namespace THEMOOD
+namespace THEMOOD;
+
+public partial class MainPage : ContentPage
 {
-    public partial class MainPage : ContentPage
+    public MainPage()
     {
-        public MainPage()
-        {
-            InitializeComponent();
+        InitializeComponent();
 
-            // Connect the NavBar control with the singleton ViewModel
-            NavBar.SetViewModel(NavBarViewModel.Instance);
-            Shell.SetNavBarIsVisible(this, false);
-        }
+        // Inject NavBar ViewModel singleton
+        NavBar.SetViewModel(NavBarViewModel.Instance);
+
+        PopupService.Initialize(
+            popup => this.ShowPopup(popup),
+            async popup => await this.ShowPopupAsync(popup)
+        );
+
+        // Set default content if you want
+        MainContentArea.Content = new Label
+        {
+            Text = "Welcome to THEMOOD!",
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center
+        };
+
+        // Hook up dynamic content loader
+        NavBarViewModel.SetMainPageContent = view =>
+        {
+            MainContentArea.Content = view;
+        };
     }
 }
