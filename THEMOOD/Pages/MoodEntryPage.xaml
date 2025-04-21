@@ -8,7 +8,7 @@
     <ContentView.BindingContext>
         <vm:MoodEntry_VM/>
     </ContentView.BindingContext>
-
+    <ScrollView>
     <VerticalStackLayout>
         <Image Source="logo_only.png"/>
         <Button
@@ -16,6 +16,54 @@
             Clicked="AddMood_Clicked"
             HorizontalOptions="Center"
             VerticalOptions="Center" />
+
+        <CollectionView 
+            x:Name="MoodLog"
+            SelectionMode="None"
+            Margin="5">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:MoodEntry_VM">
+                    <Frame BackgroundColor="White"
+                        Padding="5">
+                        <Grid
+                            RowDefinitions="Auto, Auto"
+                            ColumnDefinitions="4*, 3*, 3*"
+                            Padding="10">
+                            <Label
+                                Text="{Binding Mood}"
+                                TextColor="Black"
+                                FontAttributes="Bold"/>
+
+                            <Label
+                                Text="{Binding Date}"
+                                TextColor="Black"
+                                FontAttributes="Italic"
+                                Grid.Column="1"/>
+
+                            <Label
+                                Text="{Binding Note}"
+                                TextColor="Black"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"/>
+
+                            <Image
+                                Source="{Binding MoodIcon}"
+                                WidthRequest="80"
+                                HeightRequest="80"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                Grid.Column="2"
+                                Grid.RowSpan="2"/>
+
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
-    
+    </ScrollView>
+
 </ContentView>

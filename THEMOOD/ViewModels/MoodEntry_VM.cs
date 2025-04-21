@@ -12,5 +12,8 @@ namespace THEMOOD.ViewModels
 
         [ObservableProperty]
         private string note;
+
+        [ObservableProperty]
+        private string moodIcon;
     }
 }

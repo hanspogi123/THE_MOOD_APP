@@ -46,6 +46,7 @@
             TextColor="Black" />
         <Entry
             x:Name="MoodNotesEntry"
+            TextColor="Black"
             Placeholder="Why did you feel that mood that day?"
             PlaceholderColor="Gray"/>
 
