@@ -22,7 +22,7 @@
 
         <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Spacing="4" Opacity="{Binding IsHomeActive, Converter={StaticResource BoolToOpacityConverter}}">
             <Image Source="pinkhome.png" HeightRequest="24" WidthRequest="24" />
-            <Label Text="Home" FontSize="14" FontFamily="Genty Sans"
+            <Label Text="Home" FontSize="14" FontFamily="GentySans"
                    TextColor="{Binding IsHomeActive, Converter={StaticResource BoolToColorConverter}, ConverterParameter='Black,Gray'}"
                    HorizontalOptions="Center">
                 <Label.Triggers>
@@ -38,7 +38,7 @@
 
         <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="4" Opacity="{Binding IsWalletActive, Converter={StaticResource BoolToOpacityConverter}}">
             <Image Source="talk.png" HeightRequest="24" WidthRequest="24" />
-            <Label Text="Talk" FontSize="14" FontFamily="Genty Sans"
+            <Label Text="Talk" FontSize="14" FontFamily="GentySans"
                    TextColor="{Binding IsWalletActive, Converter={StaticResource BoolToColorConverter}, ConverterParameter='Black,Gray'}"
                    HorizontalOptions="Center">
                 <Label.Triggers>
@@ -57,7 +57,7 @@
                CornerRadius="60"
                HeightRequest="80"
                WidthRequest="80"
-               Padding="-5"
+               Padding="0"
                HasShadow="False"
                HorizontalOptions="Center"
                VerticalOptions="Center"
@@ -66,13 +66,13 @@
                 <Image Source="logo_only.png" Aspect="AspectFit" HorizontalOptions="Fill" VerticalOptions="Fill" />
             </Grid>
             <Frame.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigateToTransferCommand}" />
+                <TapGestureRecognizer Command="{Binding NavigateToActivityCommand}" />
             </Frame.GestureRecognizers>
         </Frame>
 
         <VerticalStackLayout Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center" Spacing="4" Opacity="{Binding IsActivityActive, Converter={StaticResource BoolToOpacityConverter}}">
             <Image Source="mood.png" HeightRequest="24" WidthRequest="24" />
-            <Label Text="Mood" FontFamily="Genty Sans" FontSize="14"
+            <Label Text="Mood" FontFamily="GentySans" FontSize="14"
                    TextColor="{Binding IsActivityActive, Converter={StaticResource BoolToColorConverter}, ConverterParameter='Black,Gray'}"
                    HorizontalOptions="Center">
                 <Label.Triggers>
@@ -88,7 +88,7 @@
 
         <VerticalStackLayout Grid.Column="4" HorizontalOptions="Center" VerticalOptions="Center" Spacing="4" Opacity="{Binding IsProfileActive, Converter={StaticResource BoolToOpacityConverter}}">
             <Image Source="meditation.png" HeightRequest="24" WidthRequest="24" />
-            <Label Text="Meditate" FontFamily="Genty Sans" FontSize="14"
+            <Label Text="Meditate" FontFamily="GentySans" FontSize="14"
                    TextColor="{Binding IsProfileActive, Converter={StaticResource BoolToColorConverter}, ConverterParameter='Black,Gray'}"
                    HorizontalOptions="Center">
                 <Label.Triggers>

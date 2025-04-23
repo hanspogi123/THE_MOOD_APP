@@ -12,7 +12,7 @@
                          Spacing="30">
         <Label 
             Text="Date"
-            Margin="0,10,0,-35"
+            Margin="0,10,0,35"
             TextColor="Black" />
 
         <DatePicker
@@ -21,7 +21,7 @@
 
         <Label 
             Text="Mood"
-            Margin="0,0,0,-35"
+            Margin="0,0,0,35"
             TextColor="Black" />
 
         <Picker
@@ -42,7 +42,7 @@
 
         <Label 
             Text="Notes"
-            Margin="0,-10,0,-35"
+            Margin="0,10,0,35"
             TextColor="Black" />
         <Entry
             x:Name="MoodNotesEntry"
