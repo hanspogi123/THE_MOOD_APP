@@ -1,5 +1,6 @@
 ﻿using THEMOOD.Pages;    
 using THEMOOD.Logins;
+using System.Diagnostics;
 
 namespace THEMOOD
 {
@@ -8,11 +9,15 @@ namespace THEMOOD
         public AppShell()
         {
             InitializeComponent();
+            Debug.WriteLine("AppShell initializing...");
+
+            // Register routes
             Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
-            Routing.RegisterRoute("main", typeof(MainPage));
-            Routing.RegisterRoute("signup", typeof(SignUp));
-            Routing.RegisterRoute("login", typeof(Login));
-            Routing.RegisterRoute("moodentry", typeof(MoodEntryPage));
+            Routing.RegisterRoute("login", typeof(Logins.Login));
+            Routing.RegisterRoute("signup", typeof(Logins.SignUp));
+            Routing.RegisterRoute("moodentry", typeof(Pages.MoodEntryPage));
+
+            Debug.WriteLine("Routes registered");
             Shell.SetNavBarIsVisible(this, false);
 
         }

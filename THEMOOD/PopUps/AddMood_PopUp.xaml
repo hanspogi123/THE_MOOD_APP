@@ -4,15 +4,15 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:pages="clr-namespace:THEMOOD.Pages"
              x:Class="THEMOOD.PopUps.AddMood_PopUp">
-    
+
     <VerticalStackLayout BackgroundColor="Pink"                       
-                         MinimumHeightRequest="400"
+                         MinimumHeightRequest="350"
                          MinimumWidthRequest="300"
                          Padding="20"
                          Spacing="30">
         <Label 
             Text="Date"
-            Margin="0,10,0,35"
+            Margin="0,10,0,-35"
             TextColor="Black" />
 
         <DatePicker
@@ -21,28 +21,42 @@
 
         <Label 
             Text="Mood"
-            Margin="0,0,0,35"
+            Margin="0,0,0,-35"
             TextColor="Black" />
 
         <Picker
             x:Name="MoodPicker"
-            TextColor="Black"
+            TextColor="White"
             Title="Select Mood"
             TitleColor="Black">
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
-                    <x:String>Happy</x:String>
-                    <x:String>Sad</x:String>
-                    <x:String>Angry</x:String>
-                    <x:String>Excited</x:String>
-                    <x:String>Relaxed</x:String>
+                    <x:String>😠 Angry</x:String>
+                    <x:String>😰 Anxious</x:String>
+                    <x:String>😐 Bored</x:String>
+                    <x:String>😌 Calm</x:String>
+                    <x:String>😊 Content</x:String>
+                    <x:String>😞 Depressed</x:String>
+                    <x:String>😒 Envious</x:String>
+                    <x:String>🙏 Grateful</x:String>
+                    <x:String>😔 Guilty</x:String>
+                    <x:String>😄 Happy</x:String>
+                    <x:String>🌈 Hopeful</x:String>
+                    <x:String>😤 Irritated</x:String>
+                    <x:String>😢 Lonely</x:String>
+                    <x:String>❤️ Loving</x:String>
+                    <x:String>😶 Neutral</x:String>
+                    <x:String>🤞 Optimistic</x:String>
+                    <x:String>😁 Pleased</x:String>
+                    <x:String>😢 Sad</x:String>
+                    <x:String>😫 Stressed</x:String>
                 </x:Array>
             </Picker.ItemsSource>
         </Picker>
 
         <Label 
             Text="Notes"
-            Margin="0,10,0,35"
+            Margin="0,-10,0,-35"
             TextColor="Black" />
         <Entry
             x:Name="MoodNotesEntry"
@@ -71,6 +85,6 @@
 
 
     </VerticalStackLayout>
-    
+
 
 </toolkit:Popup>

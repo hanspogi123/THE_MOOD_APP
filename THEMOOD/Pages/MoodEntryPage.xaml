@@ -9,47 +9,69 @@
         <vm:MoodEntry_VM/>
     </ContentView.BindingContext>
     <ScrollView>
-    <VerticalStackLayout>
-        <Image Source="logo_only.png"/>
-        <Button
+        <VerticalStackLayout>
+            <Image Source="logo_only.png"/>
+            <Button
             Text="Add Mood"
             Clicked="AddMood_Clicked"
             HorizontalOptions="Center"
             VerticalOptions="Center" />
 
             <CollectionView 
-                x:Name="MoodLog"
-                SelectionMode="None"
-                Margin="5">
+            x:Name="MoodLog"
+            SelectionMode="None"
+            Margin="5">
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
                 </CollectionView.ItemsLayout>
-
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame Padding="5">
+                    <DataTemplate x:DataType="vm:MoodEntry_VM">
+                        <Frame BorderColor="Black" 
+                           Padding="5" CornerRadius="50">
+                            <Frame.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="white" Offset="0.0" />
+                                    <GradientStop Color="LightPink" Offset="0.5" />
+                                    <GradientStop Color="Pink" Offset="1.0" />
+                                </LinearGradientBrush>
+                            </Frame.Background>
                             <Grid
-                    RowDefinitions="Auto, Auto"
-                    ColumnDefinitions="4*, 3*, 3*"
-                    Padding="10">
+                                RowDefinitions="Auto, Auto"
+                                ColumnDefinitions="2*, 3*, 3*"
+                                Padding="10">
+                                <Label
+                                    Text="{Binding Mood}"
+                                    TextColor="Black"
+                                    Grid.Column="1"
+                                    FontAttributes="Bold"/>
 
                                 <Label
-                        Grid.Column="0"
-                        Text="{Binding Mood}" />
+                                    Text="{Binding FormattedDate}"
+                                    TextColor="Black"
+                                    FontAttributes="Italic"
+                                    Grid.Column="2"/>
 
                                 <Label
-                        Grid.Column="1"
-                        Text="{Binding Date, StringFormat='{0:MM/dd/yyyy}'}" />
+                                    Text="{Binding Note}"
+                                    TextColor="Black"
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="2"/>
 
                                 <Label
-                        Grid.Column="2"
-                        Text="{Binding Note}" />
+                                    Text="{Binding MoodIcon}"
+                                    FontSize="70"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    Margin="-10,0,10,0"
+                                    Grid.Column="0"
+                                    Grid.RowSpan="2"/>
+
                             </Grid>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
         </VerticalStackLayout>
     </ScrollView>
 

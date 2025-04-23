@@ -18,12 +18,23 @@ public partial class AddMood_PopUp : Popup
 
     private void SaveButton_Clicked(object sender, EventArgs e)
     {
+        // Extract mood without emoji first
+        string moodText = string.Empty;
+        var selected = MoodPicker.SelectedItem?.ToString();
+        if (!string.IsNullOrWhiteSpace(selected))
+        {
+            var parts = selected.Split(' ', 2);
+            moodText = parts.Length > 1 ? parts[1] : selected;
+        }
+
+        // Now create the entry
         MoodEntry_VM entry = new MoodEntry_VM
         {
-            Date = MoodDatePicker.Date,
-            Mood = MoodPicker.SelectedItem?.ToString(),
-            Note = MoodNotesEntry.Text // Changed to match the VM property name and XAML control name
+            Mood = moodText,
+            Date = DateOnly.FromDateTime(MoodDatePicker.Date),
+            Note = MoodNotesEntry.Text
         };
+
 
         Close(entry);
     }

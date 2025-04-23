@@ -21,9 +21,6 @@ public static class MauiProgram
                 fonts.AddFont("Genty-Sans-Regular.ttf", "GentySans");
             });
 
-        // Register services
-        builder.Services.AddSingleton<IMoodService, DefaultMoodService>();
-
         // Register view models
         builder.Services.AddTransient<MoodEntry_VM>();
 

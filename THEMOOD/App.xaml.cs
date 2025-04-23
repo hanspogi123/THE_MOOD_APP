@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using THEMOOD.Logins;
+﻿using THEMOOD.Logins;
 
 namespace THEMOOD
 {
@@ -7,16 +6,8 @@ namespace THEMOOD
     {
         public App()
         {
-            try
-            {
-                InitializeComponent();
-                MainPage = new AppShell(); // or your custom MainPage
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Unhandled startup exception: " + ex);
-                MainPage = new ContentPage { Content = new Label { Text = "Startup Error!" } };
-            }
+            InitializeComponent();
+            MainPage = new AppShell();
         }
     }
 }

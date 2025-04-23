@@ -1,4 +1,4 @@
-using THEMOOD.Controls;
+﻿using THEMOOD.Controls;
 using THEMOOD.PopUps;
 using CommunityToolkit.Maui.Views;
 using THEMOOD.Services;
@@ -29,10 +29,70 @@ public partial class MoodEntryPage : ContentView
             await Shell.Current.DisplayAlert("New Mood Entry", $"Mood: {moodEntry.Mood}\nDate: {moodEntry.Date.ToShortDateString()}", "OK");
             var moodlog = (MoodEntry_VM)result;
 
-            if(moodlog.Mood == "Happy")
+            switch (moodlog.Mood)
             {
-                moodlog.MoodIcon = "mood.png";
+                case "Angry":
+                    moodlog.MoodIcon = "😠";
+                    break;
+                case "Anxious":
+                    moodlog.MoodIcon = "😰";
+                    break;
+                case "Bored":
+                    moodlog.MoodIcon = "😐";
+                    break;
+                case "Calm":
+                    moodlog.MoodIcon = "😌";
+                    break;
+                case "Content":
+                    moodlog.MoodIcon = "😊";
+                    break;
+                case "Depressed":
+                    moodlog.MoodIcon = "😞";
+                    break;
+                case "Envious":
+                    moodlog.MoodIcon = "😒";
+                    break;
+                case "Grateful":
+                    moodlog.MoodIcon = "🙏";
+                    break;
+                case "Guilty":
+                    moodlog.MoodIcon = "😔";
+                    break;
+                case "Happy":
+                    moodlog.MoodIcon = "😄";
+                    break;
+                case "Hopeful":
+                    moodlog.MoodIcon = "🌈";
+                    break;
+                case "Irritated":
+                    moodlog.MoodIcon = "😤";
+                    break;
+                case "Lonely":
+                    moodlog.MoodIcon = "😢";
+                    break;
+                case "Loving":
+                    moodlog.MoodIcon = "❤️";
+                    break;
+                case "Neutral":
+                    moodlog.MoodIcon = "😶";
+                    break;
+                case "Optimistic":
+                    moodlog.MoodIcon = "🤞";
+                    break;
+                case "Pleased":
+                    moodlog.MoodIcon = "😁";
+                    break;
+                case "Sad":
+                    moodlog.MoodIcon = "😢";
+                    break;
+                case "Stressed":
+                    moodlog.MoodIcon = "😫";
+                    break;
+                default:
+                    moodlog.MoodIcon = "❓"; // fallback icon for unrecognized mood
+                    break;
             }
+
 
             MoodEntries.Add(moodlog);
 
