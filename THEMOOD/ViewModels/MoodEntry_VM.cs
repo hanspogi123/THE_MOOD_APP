@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 
 namespace THEMOOD.ViewModels
@@ -27,5 +28,6 @@ namespace THEMOOD.ViewModels
                 return dateTime.ToString("MMMM d, yyyy dddd");
             }
         }
+
     }
 }

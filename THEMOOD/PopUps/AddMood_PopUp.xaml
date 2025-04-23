@@ -26,7 +26,7 @@
 
         <Picker
             x:Name="MoodPicker"
-            TextColor="White"
+            TextColor="Black"
             Title="Select Mood"
             TitleColor="Black">
             <Picker.ItemsSource>

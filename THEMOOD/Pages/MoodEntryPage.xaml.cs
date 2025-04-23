@@ -5,16 +5,45 @@ using THEMOOD.Services;
 using System.Threading.Tasks;
 using THEMOOD.ViewModels;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace THEMOOD.Pages;
 
 public partial class MoodEntryPage : ContentView
 {
-    ObservableCollection<MoodEntry_VM> MoodEntries;
+    // Reference the singleton service
+    private MoodEntryService _moodEntryService = MoodEntryService.Instance;
+
+    // Add the DeleteCommand property declaration
+    public ICommand DeleteCommand { get; private set; }
+
     public MoodEntryPage()
     {
         InitializeComponent();
-        MoodEntries = new ObservableCollection<MoodEntry_VM>();
+
+        // Initialize the DeleteCommand
+        DeleteCommand = new Command<MoodEntry_VM>(DeleteMoodEntry);
+
+        // Bind the CollectionView to the service's ObservableCollection
+        // Use MoodLog instead of MoodEntryLog since that's the name in your XAML
+        MoodLog.ItemsSource = _moodEntryService.MoodEntries;
+    }
+
+    private async void DeleteMoodEntry(MoodEntry_VM moodEntry)
+    {
+        // Confirm deletion
+        bool confirmed = await Shell.Current.DisplayAlert("Delete Mood Entry",
+            $"Are you sure you want to delete the mood entry for {moodEntry.Mood} on {moodEntry.Date.ToShortDateString()}?",
+            "Yes", "No");
+
+        if (confirmed)
+        {
+            // Remove the mood entry from the service
+            _moodEntryService.MoodEntries.Remove(moodEntry);
+
+            await Shell.Current.DisplayAlert("Mood Entry Deleted",
+                $"The mood entry for {moodEntry.Mood} on {moodEntry.Date.ToShortDateString()} has been deleted.", "OK");
+        }
     }
 
     private async void AddMood_Clicked(object sender, EventArgs e)
@@ -24,85 +53,15 @@ public partial class MoodEntryPage : ContentView
 
         if (result is MoodEntry_VM moodEntry)
         {
-            // Do something with the mood entry, for example:
-            // Add to your collection or save to database
-            await Shell.Current.DisplayAlert("New Mood Entry", $"Mood: {moodEntry.Mood}\nDate: {moodEntry.Date.ToShortDateString()}", "OK");
-            var moodlog = (MoodEntry_VM)result;
+            // Display the alert
+            await Shell.Current.DisplayAlert("New Mood Entry",
+                $"Mood: {moodEntry.Mood}\nDate: {moodEntry.Date.ToShortDateString()}", "OK");
 
-            switch (moodlog.Mood)
-            {
-                case "Angry":
-                    moodlog.MoodIcon = "😠";
-                    break;
-                case "Anxious":
-                    moodlog.MoodIcon = "😰";
-                    break;
-                case "Bored":
-                    moodlog.MoodIcon = "😐";
-                    break;
-                case "Calm":
-                    moodlog.MoodIcon = "😌";
-                    break;
-                case "Content":
-                    moodlog.MoodIcon = "😊";
-                    break;
-                case "Depressed":
-                    moodlog.MoodIcon = "😞";
-                    break;
-                case "Envious":
-                    moodlog.MoodIcon = "😒";
-                    break;
-                case "Grateful":
-                    moodlog.MoodIcon = "🙏";
-                    break;
-                case "Guilty":
-                    moodlog.MoodIcon = "😔";
-                    break;
-                case "Happy":
-                    moodlog.MoodIcon = "😄";
-                    break;
-                case "Hopeful":
-                    moodlog.MoodIcon = "🌈";
-                    break;
-                case "Irritated":
-                    moodlog.MoodIcon = "😤";
-                    break;
-                case "Lonely":
-                    moodlog.MoodIcon = "😢";
-                    break;
-                case "Loving":
-                    moodlog.MoodIcon = "❤️";
-                    break;
-                case "Neutral":
-                    moodlog.MoodIcon = "😶";
-                    break;
-                case "Optimistic":
-                    moodlog.MoodIcon = "🤞";
-                    break;
-                case "Pleased":
-                    moodlog.MoodIcon = "😁";
-                    break;
-                case "Sad":
-                    moodlog.MoodIcon = "😢";
-                    break;
-                case "Stressed":
-                    moodlog.MoodIcon = "😫";
-                    break;
-                default:
-                    moodlog.MoodIcon = "❓"; // fallback icon for unrecognized mood
-                    break;
-            }
+            // Add the mood entry to the service
+            _moodEntryService.AddMoodEntry(moodEntry);
 
-
-            MoodEntries.Add(moodlog);
-
-            MoodLog.ItemsSource = MoodEntries;
-
-            // If you have a view model with a collection of mood entries:
-            // ViewModel.MoodEntries.Add(moodEntry);
-
-            // Or if using a service to save entries:
-            // await DataService.SaveMoodEntryAsync(moodEntry);
+            // No need to update ItemsSource, since it's bound to the ObservableCollection
+            // that automatically notifies of changes
         }
     }
 }
