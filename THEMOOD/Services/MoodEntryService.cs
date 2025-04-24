@@ -44,6 +44,7 @@ namespace THEMOOD.Services
 
         public void AddMoodEntry(MoodEntry_VM entry)
         {
+            entry.MoodIcon = GetMoodIcon(entry.Mood);
             // Create a MoodEntry from the view model
             var moodEntry = new MoodEntry
             {
@@ -58,6 +59,7 @@ namespace THEMOOD.Services
             // Update the observable collection
             // First check if an entry for this date already exists
             var existingEntry = MoodEntries.FirstOrDefault(e => e.Date == entry.Date);
+
             if (existingEntry != null)
             {
                 MoodEntries.Remove(existingEntry);
