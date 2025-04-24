@@ -49,10 +49,12 @@
 
             <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
             <converters:BoolToOpacityConverter x:Key="BoolToOpacityConverter" />
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+                
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
