@@ -4,19 +4,26 @@
              xmlns:vm="clr-namespace:THEMOOD.ViewModels"
              xmlns:local="clr-namespace:THEMOOD.Pages"
              xmlns:controls="clr-namespace:THEMOOD.Controls"
+             xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="THEMOOD.Pages.MoodEntryPage">
 
     <ContentView.BindingContext>
         <vm:MoodEntry_VM/>
     </ContentView.BindingContext>
+
     <ScrollView>
-        <VerticalStackLayout>
+        <VerticalStackLayout Spacing="15" Padding="10">
+            <!-- Chart View -->
+            <micro:ChartView x:Name="Chart" HeightRequest="200" Margin="10"/>
+
+            <!-- Add Mood Button -->
             <Button
                 Text="Add Mood"
                 Clicked="AddMood_Clicked"
                 HorizontalOptions="Center"
                 VerticalOptions="Center" />
 
+            <!-- Mood Entries Collection -->
             <CollectionView 
                 x:Name="MoodLog"
                 SelectionMode="None"
@@ -111,9 +118,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
-
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentView>

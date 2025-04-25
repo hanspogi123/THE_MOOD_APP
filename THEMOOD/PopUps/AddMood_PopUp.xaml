@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:pages="clr-namespace:THEMOOD.Pages"
-             xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              xmlns:converters="clr-namespace:THEMOOD.Converters"
              x:Class="THEMOOD.PopUps.AddMood_PopUp">
 
@@ -13,8 +12,6 @@
                          Padding="20"
                          Spacing="30">
 
-        <micro:ChartView x:Name="Chart"/>
-        
         <Label 
             Text="Date"
             Margin="0,10,0,-35"
