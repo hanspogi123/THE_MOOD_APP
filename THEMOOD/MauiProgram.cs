@@ -3,6 +3,7 @@ using THEMOOD.Services;
 using THEMOOD.ViewModels;
 using THEMOOD.Pages;
 using CommunityToolkit.Maui;
+using Microcharts.Maui;
 
 namespace THEMOOD;
 
@@ -14,6 +15,7 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
+            .UseMicrocharts()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

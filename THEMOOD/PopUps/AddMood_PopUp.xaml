@@ -3,14 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:pages="clr-namespace:THEMOOD.Pages"
+             xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              xmlns:converters="clr-namespace:THEMOOD.Converters"
              x:Class="THEMOOD.PopUps.AddMood_PopUp">
 
     <VerticalStackLayout BackgroundColor="Pink"                       
-                         MinimumHeightRequest="350"
+                         MinimumHeightRequest="450"
                          MinimumWidthRequest="300"
                          Padding="20"
                          Spacing="30">
+
+        <micro:ChartView x:Name="Chart"/>
+        
         <Label 
             Text="Date"
             Margin="0,10,0,-35"
@@ -85,14 +89,6 @@
                 IsEnabled="{Binding IsSavedEnabled}"
                 Clicked="SaveButton_Clicked"/>
         </Grid>
-
-        <Label 
-            Text="All fields are required"
-            TextColor="DarkRed"
-            FontSize="12"
-            IsVisible="{Binding IsSavedEnabled}"
-            HorizontalOptions="Center"/>
-
 
     </VerticalStackLayout>
 

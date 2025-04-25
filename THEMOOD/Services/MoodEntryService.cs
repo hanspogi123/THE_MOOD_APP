@@ -63,6 +63,8 @@ namespace THEMOOD.Services
             if (existingEntry != null)
             {
                 MoodEntries.Remove(existingEntry);
+                Shell.Current.DisplayAlert("We have removed your preious mood entry on this date",
+                $"\nDate: {moodEntry.Date.ToShortDateString()}", "OK");
             }
 
             // Add the new entry
