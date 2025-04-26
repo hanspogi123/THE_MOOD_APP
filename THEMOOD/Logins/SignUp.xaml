@@ -6,10 +6,11 @@
              BackgroundImageSource="singup_bg.png"
              Title="SignUp"
              Shell.NavBarIsVisible="False">
-    
+    <!--
     <ContentPage.BindingContext>
         <vm:Entry_VM/>
     </ContentPage.BindingContext>
+    -->
 
     <ScrollView>
         <VerticalStackLayout Padding="30,100,30,30" Spacing="17">
@@ -38,7 +39,6 @@
                        VerticalOptions="Center"
                        HorizontalOptions="Center"/>
                 <Entry Grid.Column="1"
-                       Text="{Binding Email}"
                        TextColor="Black"
                        Placeholder="Name"
                        Style="{StaticResource BaseEntryStyle}" />
@@ -53,7 +53,6 @@
                    VerticalOptions="Center"
                    HorizontalOptions="Center"/>
                 <Entry Grid.Column="1"
-                   Text="{Binding Email}"
                    Style="{StaticResource EmailEntryStyle}" />
             </Grid>
 
@@ -66,7 +65,6 @@
                    VerticalOptions="Center"
                    HorizontalOptions="Center"/>
                 <Entry Grid.Column="1"
-                   Text="{Binding Password}"
                    TextColor="Black"
                    Style="{StaticResource PasswordEntryStyle}" />
             </Grid>
@@ -75,7 +73,6 @@
 
             <!-- Sign Up Button -->
             <Button Text="⭐  Sign Up"
-                    Command="{Binding SignUpLipatCommand}"
                     Style="{StaticResource LightButtonStyle}"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"/>
@@ -89,10 +86,10 @@
 
             <!-- Log in Button -->
             <Button Text="⭐  Log in"
-                    Command="{Binding LoginLipatCommand}"
                     Style="{StaticResource DarkButtonStyle}"
                     HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
+                    VerticalOptions="Center"
+                    Clicked="LoginBalik_Clicked"/>
 
         </VerticalStackLayout>
     </ScrollView>

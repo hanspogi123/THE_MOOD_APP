@@ -8,6 +8,10 @@
        Shell.FlyoutBehavior="Disabled">
 
 
+    <ShellContent
+        ContentTemplate="{DataTemplate logins:Login}"
+        Route="login" />
+    
     <TabBar Route="main">
         <ShellContent
             Title="Main"

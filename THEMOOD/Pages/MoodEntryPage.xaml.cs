@@ -115,7 +115,7 @@ public partial class MoodEntryPage : ContentView
         entries = chartEntries.ToArray();
 
         // Update the chart with new entries
-        Chart.Chart = new DonutChart
+        Chart.Chart = new BarChart
         {
             Entries = entries,
             LabelTextSize = 30,

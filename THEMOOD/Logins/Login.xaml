@@ -6,9 +6,11 @@
              xmlns:vm="clr-namespace:THEMOOD.ViewModels" 
              BackgroundImageSource="login_wp.png">
 
+    <!--
     <ContentPage.BindingContext>
         <vm:Entry_VM/>
     </ContentPage.BindingContext>
+    -->
     
     <ScrollView>
         <VerticalStackLayout Padding="30,100,30,30" Spacing="20">
@@ -37,7 +39,7 @@
                        VerticalOptions="Center"
                        HorizontalOptions="Center"/>
                 <Entry Grid.Column="1"
-                       Text="{Binding Email}"
+                       x:Name="Email"
                        Style="{StaticResource EmailEntryStyle}" />
             </Grid>
 
@@ -50,8 +52,8 @@
                        VerticalOptions="Center"
                        HorizontalOptions="Center"/>
                 <Entry Grid.Column="1"
-                       Text="{Binding Password}"
                        TextColor="Black"
+                       x:Name="Password"
                        Style="{StaticResource PasswordEntryStyle}" />
             </Grid>
 
@@ -61,6 +63,7 @@
             <Button Text="⭐  Log in"
                     Command="{Binding LoginCommand}"
                     Style="{StaticResource LightButtonStyle}"
+                    Clicked="OnLoginClicked"
                     Padding="50,0"/>
 
             <!-- OR Separator -->
@@ -73,6 +76,7 @@
             <!-- Sign Up Button -->
             <Button Text="⭐  Sign Up"
                     Command="{Binding SignUpLipatCommand}"
+                    Clicked="SignUp_Clicked"
                     Style="{StaticResource DarkButtonStyle}"/>
 
         </VerticalStackLayout>

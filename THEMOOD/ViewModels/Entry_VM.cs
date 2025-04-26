@@ -46,7 +46,7 @@ namespace THEMOOD.ViewModels
         [RelayCommand]
         private async Task SignUpLipatAsync()
         {
-            await Shell.Current.GoToAsync("signup");
+            await Shell.Current.GoToAsync("//signup");
         }
 
         [RelayCommand]
