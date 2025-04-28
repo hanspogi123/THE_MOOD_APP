@@ -4,7 +4,7 @@
              x:Class="THEMOOD.Pages.Meditation">
     <VerticalStackLayout>
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="tite!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
     </VerticalStackLayout>
