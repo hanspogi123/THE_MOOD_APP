@@ -47,6 +47,24 @@
                 <Setter Property="IsPassword" Value="True" />
             </Style>
 
+            <!-- Gradient Brush -->
+            <LinearGradientBrush x:Key="MoodGradientBrush" StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="White" Offset="0.0" />
+                <GradientStop Color="LightPink" Offset="0.3" />
+                <GradientStop Color="#BA55D3" Offset="0.6" />
+                <!-- Light Purple -->
+                <GradientStop Color="#FF1493" Offset="1.0" />
+                <!-- Deep Pink -->
+            </LinearGradientBrush>
+
+            <!-- Style for Frame using the Brush -->
+            <Style x:Key="FrameStyle" TargetType="Frame">
+                <Setter Property="Background" Value="{StaticResource MoodGradientBrush}" />
+                <Setter Property="BorderColor" Value="Black" />
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="Padding" Value="10" />
+            </Style>
+
             <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
             <converters:BoolToOpacityConverter x:Key="BoolToOpacityConverter" />
             <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>

@@ -14,10 +14,11 @@
     <ScrollView>
         <VerticalStackLayout Spacing="15" Padding="10">
             <!-- Chart View -->
-            <Frame CornerRadius="15" BackgroundColor="#f5f5f5" Margin="5" Padding="10">
+            <Frame CornerRadius="15" BackgroundColor="#f5f5f5" Margin="5" Padding="10" Style="{StaticResource FrameStyle}">
                 <VerticalStackLayout>
                     <Label Text="Mood Distribution" 
                            FontFamily="GentySans"
+                           TextColor="Black"
                            FontSize="16" 
                            FontAttributes="Bold"
                            HorizontalOptions="Center" 
@@ -27,9 +28,10 @@
             </Frame>
 
             <!-- Analysis Section -->
-            <Frame CornerRadius="15" BackgroundColor="#f5f5f5" Margin="5" Padding="10">
+            <Frame CornerRadius="15" BackgroundColor="#f5f5f5" Margin="5" Padding="10" Style="{StaticResource FrameStyle}">
                 <VerticalStackLayout>
                     <Label Text="Mood Analysis"
+                           TextColor="Black"
                            FontSize="16"
                            FontFamily="GentySans"
                            FontAttributes="Bold"
@@ -38,7 +40,7 @@
 
                     <Label x:Name="AnalysisLabel"
                            Text="AI Analysis on your mood would show after entering at least 3 moods"
-                           FontFamily=""
+                           TextColor="Black"
                            TextType="Html"
                            Margin="5"/>
                 </VerticalStackLayout>
@@ -54,6 +56,7 @@
             <!-- Mood Entries Collection -->
             <Label Text="Mood History" 
                    FontFamily="GentySans"
+                   TextColor="Black"
                    FontSize="16" 
                    FontAttributes="Bold" />
 

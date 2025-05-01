@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="THEMOOD.Pages.Meditation">
-    <VerticalStackLayout>
-        <Label 
-            Text="tite!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+
+
+    <CollectionView x:Name="VideoFeed"
+                    ItemsLayout="VerticalList"
+                    VerticalScrollBarVisibility="Never"
+                    RemainingItemsThreshold="1"
+                    SelectionMode="None"
+                    Scrolled="OnScrolled"
+                    HeightRequest="700">
         
-        
-    </VerticalStackLayout>
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Grid HeightRequest="700">
+                <toolkit:MediaElement
+                    WidthRequest="550"
+                    HeightRequest="700"
+                    Source="{Binding}"
+                    ShouldAutoPlay="True"
+                    ShouldLoopPlayback="True"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"/>
+                </Grid>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+    
 </ContentView>
