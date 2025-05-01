@@ -7,5 +7,7 @@
             Text="tite!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        
+        
     </VerticalStackLayout>
 </ContentView>

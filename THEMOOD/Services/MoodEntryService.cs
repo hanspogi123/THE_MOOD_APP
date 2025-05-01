@@ -7,6 +7,8 @@ namespace THEMOOD.Services
     {
         private static MoodEntryService _instance;
         private IMoodService _moodService;
+        private GeminiAIService _aiService;
+        private readonly string _apiKey = "AIzaSyCOwo-lCI40SB7HRW6ad1xV28pxUIIoDjQ"; // Replace with your actual API key
 
         public static MoodEntryService Instance
         {
@@ -25,6 +27,7 @@ namespace THEMOOD.Services
         private MoodEntryService()
         {
             _moodService = new DefaultMoodService();
+            _aiService = new GeminiAIService(_apiKey);
             LoadMoodEntries();
         }
 
@@ -63,7 +66,7 @@ namespace THEMOOD.Services
             if (existingEntry != null)
             {
                 MoodEntries.Remove(existingEntry);
-                Shell.Current.DisplayAlert("We have removed your preious mood entry on this date",
+                Shell.Current.DisplayAlert("We have removed your previous mood entry on this date",
                 $"\nDate: {moodEntry.Date.ToShortDateString()}", "OK");
             }
 
@@ -78,6 +81,27 @@ namespace THEMOOD.Services
 
             // Remove from the observable collection
             MoodEntries.Remove(entry);
+        }
+
+        // New method to get AI analysis of mood patterns
+        public async Task<string> GetMoodAnalysis()
+        {
+            // Only analyze if we have at least 3 entries
+            if (MoodEntries.Count < 3)
+            {
+                return "Enter at least 3 mood entries to receive AI analysis.";
+            }
+
+            // Convert view models to MoodEntry objects for the AI service
+            var moodEntries = MoodEntries.Select(vm => new MoodEntry
+            {
+                Date = vm.Date.ToDateTime(TimeOnly.MinValue),
+                Mood = vm.Mood,
+                Reason = vm.Note
+            }).ToList();
+
+            // Get analysis from the AI service
+            return await _aiService.AnalyzeMoodPatterns(moodEntries);
         }
 
         private string GetMoodIcon(string mood)

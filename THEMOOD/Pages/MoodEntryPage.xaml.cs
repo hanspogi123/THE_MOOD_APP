@@ -25,14 +25,25 @@ public partial class MoodEntryPage : ContentView
     // Define mood colors
     private readonly Dictionary<string, SKColor> _moodColors = new Dictionary<string, SKColor>
     {
-        { "Happy", new SKColor(255, 193, 7) },    // Amber
-        { "Sad", new SKColor(33, 150, 243) },     // Blue
-        { "Neutral", new SKColor(158, 158, 158) },// Gray
-        { "Angry", new SKColor(244, 67, 54) },    // Red
-        { "Anxious", new SKColor(156, 39, 176) }, // Purple
-        { "Content", new SKColor(76, 175, 80) },  // Green
-        { "Stressed", new SKColor(255, 87, 34) }, // Deep Orange
-        // Add more moods as needed
+        { "Angry", new SKColor(244, 67, 54) },       // Red - intense and aggressive
+        { "Anxious", new SKColor(156, 39, 176) },    // Purple - tension and unease
+        { "Bored", new SKColor(121, 85, 72) },       // Brown - dull, lack of excitement
+        { "Calm", new SKColor(129, 212, 250) },      // Light Blue - peaceful and gentle
+        { "Content", new SKColor(76, 175, 80) },     // Green - harmony and satisfaction
+        { "Depressed", new SKColor(33, 33, 33) },    // Very dark gray - heavy and hopeless
+        { "Envious", new SKColor(139, 195, 74) },    // Lime Green - jealousy, envy
+        { "Grateful", new SKColor(255, 215, 0) },    // Gold - warmth and appreciation
+        { "Guilty", new SKColor(96, 125, 139) },     // Blue Gray - mixed emotions
+        { "Happy", new SKColor(255, 193, 7) },       // Amber - bright and cheerful
+        { "Hopeful", new SKColor(0, 188, 212) },     // Cyan - uplifting, future-looking
+        { "Irritated", new SKColor(255, 87, 34) },   // Deep Orange - agitation
+        { "Lonely", new SKColor(103, 58, 183) },     // Deep Purple - emotional depth, isolation
+        { "Loving", new SKColor(233, 30, 99) },      // Pink - affectionate, passionate
+        { "Neutral", new SKColor(158, 158, 158) },   // Gray - balance, indifference
+        { "Optimistic", new SKColor(255, 235, 59) }, // Bright Yellow - hope and brightness
+        { "Pleased", new SKColor(255, 152, 0) },     // Orange - satisfaction and energy
+        { "Sad", new SKColor(33, 150, 243) },        // Blue - melancholy
+        { "Stressed", new SKColor(198, 40, 40) }    // Dark Red - high pressure, intensity
     };
 
     public MoodEntryPage()
@@ -45,7 +56,7 @@ public partial class MoodEntryPage : ContentView
         // Bind the CollectionView to the service's ObservableCollection
         MoodLog.ItemsSource = _moodEntryService.MoodEntries;
 
-        // Subscribe to collection changes to update chart
+        // Subscribe to collection changes to update chart and analysis
         if (_moodEntryService.MoodEntries is ObservableCollection<MoodEntry_VM> observableMoodEntries)
         {
             observableMoodEntries.CollectionChanged += MoodEntries_CollectionChanged;
@@ -53,12 +64,18 @@ public partial class MoodEntryPage : ContentView
 
         // Initial chart update
         UpdateMoodChart();
+
+        // Initial mood analysis
+        UpdateMoodAnalysis();
     }
 
     private void MoodEntries_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
     {
         // Update the chart when the collection changes
         UpdateMoodChart();
+
+        // Update the mood analysis when the collection changes
+        UpdateMoodAnalysis();
     }
 
     private void UpdateMoodChart()
@@ -125,6 +142,33 @@ public partial class MoodEntryPage : ContentView
         };
     }
 
+    // New method to update mood analysis
+    private async void UpdateMoodAnalysis()
+    {
+        try
+        {
+            if (_moodEntryService.MoodEntries.Count < 3)
+            {
+                AnalysisLabel.Text = "AI Analysis on your mood will show after entering at least 3 moods";
+                return;
+            }
+
+            // Show loading indicator
+            AnalysisLabel.Text = "Analyzing your mood patterns...";
+
+            // Get the analysis from the service
+            string analysis = await _moodEntryService.GetMoodAnalysis();
+
+            // Update the UI with the analysis
+            AnalysisLabel.Text = analysis;
+        }
+        catch (Exception ex)
+        {
+            AnalysisLabel.Text = "Unable to analyze moods at this time.";
+            Console.WriteLine($"Error analyzing moods: {ex.Message}");
+        }
+    }
+
     private async void DeleteMoodEntry(MoodEntry_VM moodEntry)
     {
         // Confirm deletion
@@ -140,7 +184,7 @@ public partial class MoodEntryPage : ContentView
             await Shell.Current.DisplayAlert("Mood Entry Deleted",
                 $"The mood entry for {moodEntry.Mood} on {moodEntry.Date.ToShortDateString()} has been deleted.", "OK");
 
-            // The chart will update automatically through the collection changed event
+            // The chart and analysis will update automatically through the collection changed event
         }
     }
 
@@ -158,7 +202,7 @@ public partial class MoodEntryPage : ContentView
             // Add the mood entry to the service
             _moodEntryService.AddMoodEntry(moodEntry);
 
-            // The chart will update automatically through the collection changed event
+            // The chart and analysis will update automatically through the collection changed event
         }
     }
 }
