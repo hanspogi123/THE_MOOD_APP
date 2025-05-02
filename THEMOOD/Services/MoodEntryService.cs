@@ -8,7 +8,7 @@ namespace THEMOOD.Services
         private static MoodEntryService _instance;
         private IMoodService _moodService;
         private GeminiAIService _aiService;
-        private readonly string _apiKey = "AIzaSyCOwo-lCI40SB7HRW6ad1xV28pxUIIoDjQ"; // Replace with your actual API key
+        private readonly string _apiKey = "AIzaSyCOwo-lCI40SB7HRW6ad1xV28pxUIIoDjQ";
 
         public static MoodEntryService Instance
         {

@@ -72,6 +72,9 @@
 		<MauiXaml Update="Logins\SignUp.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Pages\Chat.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Pages\Meditation.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

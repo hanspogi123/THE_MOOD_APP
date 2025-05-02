@@ -27,6 +27,7 @@ namespace THEMOOD.Converters
                 "Black" => Colors.HotPink,
                 "Gray" => Colors.White,
                 "White" => Colors.White,
+                "LightBlue" => Colors.LightBlue,
                 // Add more colors as needed
                 _ => Colors.Pink // Default
             };
@@ -89,6 +90,38 @@ namespace THEMOOD.Converters
                 return !boolValue;
             }
             return value;
+        }
+    }
+
+    // Add this new converter for chat message alignment
+    public class BoolToAlignmentConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is bool boolValue && parameter is string alignments)
+            {
+                var alignmentOptions = alignments.Split(',');
+                if (alignmentOptions.Length == 2)
+                {
+                    // LayoutOptions is not an enum, so we need to handle it differently
+                    var alignmentStr = boolValue ? alignmentOptions[0].Trim() : alignmentOptions[1].Trim();
+
+                    return alignmentStr switch
+                    {
+                        "Start" => LayoutOptions.Start,
+                        "Center" => LayoutOptions.Center,
+                        "End" => LayoutOptions.End,
+                        "Fill" => LayoutOptions.Fill,
+                        _ => LayoutOptions.Start
+                    };
+                }
+            }
+            return LayoutOptions.Start;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 }

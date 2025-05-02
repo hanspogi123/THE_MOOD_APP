@@ -11,14 +11,14 @@
                     RemainingItemsThreshold="1"
                     SelectionMode="None"
                     Scrolled="OnScrolled"
-                    HeightRequest="700">
+                    HeightRequest="750">
         
         <CollectionView.ItemTemplate>
             <DataTemplate>
-                <Grid HeightRequest="700">
+                <Grid HeightRequest="750">
                 <toolkit:MediaElement
                     WidthRequest="550"
-                    HeightRequest="700"
+                    HeightRequest="750"
                     Source="{Binding}"
                     ShouldAutoPlay="True"
                     ShouldLoopPlayback="True"

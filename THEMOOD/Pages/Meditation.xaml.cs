@@ -12,7 +12,7 @@ public partial class Meditation : ContentView
 {
     private double _lastScrollY;
     private System.Timers.Timer _scrollTimer;
-    private const double ItemHeight = 700;
+    private const double ItemHeight = 750;
     private int _currentVideoIndex = -1;
     private MediaElement _currentMediaElement;
 
@@ -21,14 +21,14 @@ public partial class Meditation : ContentView
         InitializeComponent();
         var videoUrls = new List<string>
         {
-            "https://tinyurl.com/2k3bxdx9", // Video 1
             "https://tinyurl.com/mtcjhcs8", // Video 2
+            "https://tinyurl.com/2k3bxdx9", // Video 1
             "https://tinyurl.com/5b8bpvjc"  // Video 3
         };
         VideoFeed.ItemsSource = videoUrls;
 
         // Initialize the timer
-        _scrollTimer = new System.Timers.Timer(300);
+        _scrollTimer = new System.Timers.Timer(200);
         _scrollTimer.Elapsed += ScrollTimer_Elapsed;
         _scrollTimer.AutoReset = false;
 

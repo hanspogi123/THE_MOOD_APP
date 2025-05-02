@@ -81,7 +81,9 @@ namespace THEMOOD.ViewModels
             IsActivityActive = false;
             IsProfileActive = false;
 
-            return Shell.Current.GoToAsync("//main");
+            SetMainPageContent?.Invoke(new THEMOOD.Pages.Chat());
+
+            return Task.CompletedTask;
         }
 
         [RelayCommand]

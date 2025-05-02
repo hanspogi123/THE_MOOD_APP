@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:THEMOOD.ViewModels"
+             x:Class="THEMOOD.Pages.Chat">
+
+    <ContentView.BindingContext>
+        <viewmodels:Chat_VM />
+    </ContentView.BindingContext>
+
+    <Grid RowDefinitions="*, Auto">
+        <!-- Chat messages list -->
+        <CollectionView Grid.Row="0" 
+                       ItemsSource="{Binding Messages}"
+                       Margin="10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="5" 
+                          Margin="5" 
+                          ColumnDefinitions="*">
+                        <Frame BorderColor="LightGray"
+                               CornerRadius="10"
+                               Padding="10"
+                               HasShadow="True"
+                               BackgroundColor="{Binding IsFromUser, Converter={StaticResource BoolToColorConverter}, ConverterParameter='LightBlue,White'}"
+                               HorizontalOptions="{Binding IsFromUser, Converter={StaticResource ItemAlignment}, ConverterParameter='End,Start'}">
+                            <StackLayout>
+                                <Label Text="{Binding Text}" 
+                                       TextColor="Black" 
+                                       FontSize="Medium" />
+                                <Label Text="{Binding Timestamp, StringFormat='{0:HH:mm}'}" 
+                                       TextColor="Gray" 
+                                       FontSize="Small"
+                                       HorizontalOptions="End" />
+                            </StackLayout>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Message input area -->
+        <Grid Grid.Row="1" 
+              ColumnDefinitions="*, Auto" 
+              Padding="10" 
+              BackgroundColor="#f5f5f5">
+            <Entry Grid.Column="0" 
+                   Placeholder="Type your message here..." 
+                   Text="{Binding UserMessage}" 
+                   TextColor="Black"
+                   ReturnCommand="{Binding SendMessageCommand}"
+                   Margin="0,0,10,0" />
+            <Button Grid.Column="1" 
+                    Text="Send" 
+                    Command="{Binding SendMessageCommand}" 
+                    IsEnabled="{Binding IsSending, Converter={StaticResource InverseBoolConverter}}"
+                    BackgroundColor="#007bff"
+                    TextColor="White" />
+        </Grid>
+    </Grid>
+</ContentView>
