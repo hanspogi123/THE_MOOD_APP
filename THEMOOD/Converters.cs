@@ -26,8 +26,8 @@ namespace THEMOOD.Converters
             {
                 "Black" => Colors.HotPink,
                 "Gray" => Colors.White,
-                "White" => Colors.White,
-                "LightBlue" => Colors.LightBlue,
+                "White" => Color.FromArgb("#f0a5f0"),
+                "LightBlue" => Color.FromArgb("#b7b0ff"),
                 // Add more colors as needed
                 _ => Colors.Pink // Default
             };

@@ -5,28 +5,39 @@
              x:Class="THEMOOD.Pages.Meditation">
 
 
-    <CollectionView x:Name="VideoFeed"
+    <Grid>
+        <CollectionView x:Name="VideoFeed"
                     ItemsLayout="VerticalList"
                     VerticalScrollBarVisibility="Never"
                     RemainingItemsThreshold="1"
-                    SelectionMode="None"
+                    SelectionMode="None" 
                     Scrolled="OnScrolled"
                     HeightRequest="750">
-        
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <Grid HeightRequest="750">
-                <toolkit:MediaElement
-                    WidthRequest="550"
-                    HeightRequest="750"
-                    Source="{Binding}"
-                    ShouldAutoPlay="True"
-                    ShouldLoopPlayback="True"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center"/>
-                </Grid>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
-    
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid HeightRequest="750">
+                        <toolkit:MediaElement
+                            WidthRequest="550"
+                            HeightRequest="750"
+                            Source="{Binding}"
+                            ShouldAutoPlay="False"
+                            ShouldLoopPlayback="True"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"/>
+
+                        <!-- Play button overlay -->
+                        <Image 
+                            Source="play_icon.png" 
+                            HeightRequest="80" 
+                            WidthRequest="80"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            InputTransparent="True"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
 </ContentView>
