@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Controls;
 
 namespace THEMOOD.ViewModels
 {
@@ -13,13 +14,22 @@ namespace THEMOOD.ViewModels
         public static Action<Microsoft.Maui.Controls.View>? SetMainPageContent;
 
         // Cache dictionary to store created views
-        private Dictionary<string, Microsoft.Maui.Controls.View> _viewCache = new Dictionary<string, Microsoft.Maui.Controls.View>();
+        private Dictionary<string, Lazy<Microsoft.Maui.Controls.View>> _viewCache = new Dictionary<string, Lazy<Microsoft.Maui.Controls.View>>();
+
+        // Track the current view to avoid unnecessary reloads
+        private string _currentViewKey = string.Empty;
 
         private static NavBarViewModel _instance;
         public static NavBarViewModel Instance => _instance ??= new NavBarViewModel();
 
         // Make constructor private for singleton pattern
-        private NavBarViewModel() { }
+        private NavBarViewModel()
+        {
+            // Define lazy-loaded views
+            _viewCache["Chat"] = new Lazy<Microsoft.Maui.Controls.View>(() => new THEMOOD.Pages.Chat());
+            _viewCache["MoodEntry"] = new Lazy<Microsoft.Maui.Controls.View>(() => new THEMOOD.Pages.MoodEntryPage());
+            _viewCache["Meditation"] = new Lazy<Microsoft.Maui.Controls.View>(() => new THEMOOD.Pages.Meditation());
+        }
 
         private bool _isHomeActive = true;
         public bool IsHomeActive
@@ -49,13 +59,24 @@ namespace THEMOOD.ViewModels
             set => SetProperty(ref _isProfileActive, value);
         }
 
-        [RelayCommand]
-        private Task NavigateToHomeAsync()
+        private void ResetAllTabs()
         {
-            IsHomeActive = true;
+            IsHomeActive = false;
             IsWalletActive = false;
             IsActivityActive = false;
             IsProfileActive = false;
+        }
+
+        [RelayCommand]
+        private Task NavigateToHomeAsync()
+        {
+            // Skip if already on this tab
+            if (IsHomeActive)
+                return Task.CompletedTask;
+
+            ResetAllTabs();
+            IsHomeActive = true;
+            _currentViewKey = string.Empty;
 
             // We navigate through shell for Home
             return Shell.Current.GoToAsync("//main");
@@ -64,10 +85,13 @@ namespace THEMOOD.ViewModels
         [RelayCommand]
         private Task NavigateToWalletAsync()
         {
-            IsHomeActive = false;
+            // Skip if already on this tab
+            if (IsWalletActive)
+                return Task.CompletedTask;
+
+            ResetAllTabs();
             IsWalletActive = true;
-            IsActivityActive = false;
-            IsProfileActive = false;
+            _currentViewKey = string.Empty;
 
             return Shell.Current.GoToAsync("//main");
         }
@@ -75,18 +99,15 @@ namespace THEMOOD.ViewModels
         [RelayCommand]
         private Task NavigateToChatAsync()
         {
-            IsHomeActive = false;
-            IsWalletActive = false;
-            IsActivityActive = false;
-            IsProfileActive = false;
+            // Skip if already on this tab and view is set
+            if (_currentViewKey == "Chat")
+                return Task.CompletedTask;
 
-            // Use cached view if available, otherwise create a new one
-            if (!_viewCache.ContainsKey("Chat"))
-            {
-                _viewCache["Chat"] = new THEMOOD.Pages.Chat();
-            }
+            ResetAllTabs();
+            _currentViewKey = "Chat";
 
-            SetMainPageContent?.Invoke(_viewCache["Chat"]);
+            // Use lazy-loaded view - will create the first time it's accessed
+            SetMainPageContent?.Invoke(_viewCache["Chat"].Value);
 
             return Task.CompletedTask;
         }
@@ -94,18 +115,16 @@ namespace THEMOOD.ViewModels
         [RelayCommand]
         private Task NavigateToActivityAsync()
         {
-            IsHomeActive = false;
-            IsWalletActive = false;
+            // Skip if already on this tab and view is set
+            if (_currentViewKey == "MoodEntry")
+                return Task.CompletedTask;
+
+            ResetAllTabs();
             IsActivityActive = true;
-            IsProfileActive = false;
+            _currentViewKey = "MoodEntry";
 
-            // Use cached view if available, otherwise create a new one
-            if (!_viewCache.ContainsKey("MoodEntry"))
-            {
-                _viewCache["MoodEntry"] = new THEMOOD.Pages.MoodEntryPage();
-            }
-
-            SetMainPageContent?.Invoke(_viewCache["MoodEntry"]);
+            // Use lazy-loaded view - will create the first time it's accessed
+            SetMainPageContent?.Invoke(_viewCache["MoodEntry"].Value);
 
             return Task.CompletedTask;
         }
@@ -113,20 +132,49 @@ namespace THEMOOD.ViewModels
         [RelayCommand]
         private Task NavigateToProfileAsync()
         {
-            IsHomeActive = false;
-            IsWalletActive = false;
-            IsActivityActive = false;
+            // Skip if already on this tab and view is set
+            if (_currentViewKey == "Meditation")
+                return Task.CompletedTask;
+
+            ResetAllTabs();
             IsProfileActive = true;
+            _currentViewKey = "Meditation";
 
-            // Use cached view if available, otherwise create a new one
-            if (!_viewCache.ContainsKey("Meditation"))
-            {
-                _viewCache["Meditation"] = new THEMOOD.Pages.Meditation();
-            }
-
-            SetMainPageContent?.Invoke(_viewCache["Meditation"]);
+            // Use lazy-loaded view - will create the first time it's accessed
+            SetMainPageContent?.Invoke(_viewCache["Meditation"].Value);
 
             return Task.CompletedTask;
+        }
+
+        // Method to clear all cached views - useful for low memory situations
+        public void ClearViewCache()
+        {
+            // Only clear non-active views
+            var keysToRemove = _viewCache.Keys
+                .Where(key => key != _currentViewKey)
+                .ToList();
+
+            foreach (var key in keysToRemove)
+            {
+                // Only remove if initialized
+                if (_viewCache[key].IsValueCreated)
+                {
+                    _viewCache.Remove(key);
+                }
+            }
+
+            // Add back lazy loaders for removed views
+            if (!_viewCache.ContainsKey("Chat"))
+                _viewCache["Chat"] = new Lazy<Microsoft.Maui.Controls.View>(() => new THEMOOD.Pages.Chat());
+
+            if (!_viewCache.ContainsKey("MoodEntry"))
+                _viewCache["MoodEntry"] = new Lazy<Microsoft.Maui.Controls.View>(() => new THEMOOD.Pages.MoodEntryPage());
+
+            if (!_viewCache.ContainsKey("Meditation"))
+                _viewCache["Meditation"] = new Lazy<Microsoft.Maui.Controls.View>(() => new THEMOOD.Pages.Meditation());
+
+            // Force garbage collection
+            GC.Collect();
         }
     }
 }

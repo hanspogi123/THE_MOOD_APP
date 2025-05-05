@@ -3,14 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="THEMOOD.Pages.Meditation"
-             Unloaded="ContentView_Unloaded">
-    
-    <toolkit:MediaElement Source="embed://Resources/Videos/meditate1.mp4"
-                              ShouldAutoPlay="False"
-                              ShouldShowPlaybackControls="True"
-                              HeightRequest="650"
-                              x:Name="VideoPlayer"/>
+             Unloaded="ContentView_Unloaded"
+             Loaded="ContentView_Loaded">
 
+    <Grid>
+        <toolkit:MediaElement x:Name="VideoPlayer"
+                             ShouldAutoPlay="False"
+                             Source="embed://Resources/Videos/meditate1.mp4"
+                             ShouldShowPlaybackControls="True"
+                             HeightRequest="650" />
 
-
+        <ActivityIndicator x:Name="LoadingIndicator"
+                          IsVisible="True"
+                          IsRunning="True"
+                          HorizontalOptions="Center"
+                          VerticalOptions="Center"
+                          Color="#ff69b4" />
+    </Grid>
 </ContentView>
