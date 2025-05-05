@@ -8,12 +8,12 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace THEMOOD.ViewModels
 {
-    
-
     public partial class NavBarViewModel : ObservableObject
     {
         public static Action<Microsoft.Maui.Controls.View>? SetMainPageContent;
-        // Using partial properties instead of [ObservableProperty] for AOT compatibility
+
+        // Cache dictionary to store created views
+        private Dictionary<string, Microsoft.Maui.Controls.View> _viewCache = new Dictionary<string, Microsoft.Maui.Controls.View>();
 
         private static NavBarViewModel _instance;
         public static NavBarViewModel Instance => _instance ??= new NavBarViewModel();
@@ -57,6 +57,7 @@ namespace THEMOOD.ViewModels
             IsActivityActive = false;
             IsProfileActive = false;
 
+            // We navigate through shell for Home
             return Shell.Current.GoToAsync("//main");
         }
 
@@ -74,14 +75,18 @@ namespace THEMOOD.ViewModels
         [RelayCommand]
         private Task NavigateToChatAsync()
         {
-            // Transfer doesn't have an active state
-            
             IsHomeActive = false;
             IsWalletActive = false;
             IsActivityActive = false;
             IsProfileActive = false;
 
-            SetMainPageContent?.Invoke(new THEMOOD.Pages.Chat());
+            // Use cached view if available, otherwise create a new one
+            if (!_viewCache.ContainsKey("Chat"))
+            {
+                _viewCache["Chat"] = new THEMOOD.Pages.Chat();
+            }
+
+            SetMainPageContent?.Invoke(_viewCache["Chat"]);
 
             return Task.CompletedTask;
         }
@@ -94,7 +99,13 @@ namespace THEMOOD.ViewModels
             IsActivityActive = true;
             IsProfileActive = false;
 
-            SetMainPageContent?.Invoke(new THEMOOD.Pages.MoodEntryPage());
+            // Use cached view if available, otherwise create a new one
+            if (!_viewCache.ContainsKey("MoodEntry"))
+            {
+                _viewCache["MoodEntry"] = new THEMOOD.Pages.MoodEntryPage();
+            }
+
+            SetMainPageContent?.Invoke(_viewCache["MoodEntry"]);
 
             return Task.CompletedTask;
         }
@@ -107,7 +118,13 @@ namespace THEMOOD.ViewModels
             IsActivityActive = false;
             IsProfileActive = true;
 
-            SetMainPageContent?.Invoke(new THEMOOD.Pages.Meditation());
+            // Use cached view if available, otherwise create a new one
+            if (!_viewCache.ContainsKey("Meditation"))
+            {
+                _viewCache["Meditation"] = new THEMOOD.Pages.Meditation();
+            }
+
+            SetMainPageContent?.Invoke(_viewCache["Meditation"]);
 
             return Task.CompletedTask;
         }

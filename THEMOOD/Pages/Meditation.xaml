@@ -4,11 +4,13 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="THEMOOD.Pages.Meditation"
              Unloaded="ContentView_Unloaded">
-
+    
     <toolkit:MediaElement Source="embed://Resources/Videos/meditate1.mp4"
-                                  ShouldAutoPlay="False"
-                                  ShouldShowPlaybackControls="True"
-                                  HeightRequest="750"
-                                  x:Name="VideoPlayer"/>
+                              ShouldAutoPlay="False"
+                              ShouldShowPlaybackControls="True"
+                              HeightRequest="650"
+                              x:Name="VideoPlayer"/>
+
+
 
 </ContentView>
