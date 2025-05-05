@@ -2,42 +2,13 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="THEMOOD.Pages.Meditation">
+             x:Class="THEMOOD.Pages.Meditation"
+             Unloaded="ContentView_Unloaded">
 
-
-    <Grid>
-        <CollectionView x:Name="VideoFeed"
-                    ItemsLayout="VerticalList"
-                    VerticalScrollBarVisibility="Never"
-                    RemainingItemsThreshold="1"
-                    SelectionMode="None" 
-                    Scrolled="OnScrolled"
-                    HeightRequest="750">
-
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid HeightRequest="750">
-                        <toolkit:MediaElement
-                            WidthRequest="550"
-                            HeightRequest="750"
-                            Source="{Binding}"
-                            ShouldAutoPlay="False"
-                            ShouldLoopPlayback="True"
-                            VerticalOptions="Center"
-                            HorizontalOptions="Center"/>
-
-                        <!-- Play button overlay -->
-                        <Image 
-                            Source="play_icon.png" 
-                            HeightRequest="80" 
-                            WidthRequest="80"
-                            VerticalOptions="Center"
-                            HorizontalOptions="Center"
-                            InputTransparent="True"/>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </Grid>
+    <toolkit:MediaElement Source="embed://Resources/Videos/meditate1.mp4"
+                                  ShouldAutoPlay="False"
+                                  ShouldShowPlaybackControls="True"
+                                  HeightRequest="750"
+                                  x:Name="VideoPlayer"/>
 
 </ContentView>

@@ -7,9 +7,7 @@
        x:Class="THEMOOD.AppShell"
        Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-            ContentTemplate="{DataTemplate logins:Login}"
-            Route="login" />
+    
 
     <TabBar Route="main">
         <ShellContent
@@ -17,6 +15,10 @@
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="main" />
     </TabBar>
+
+    <ShellContent
+        ContentTemplate="{DataTemplate logins:Login}"
+        Route="login" />
 
     <ShellContent
         ContentTemplate="{DataTemplate logins:SignUp}"
