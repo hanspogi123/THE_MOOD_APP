@@ -28,8 +28,10 @@
 
         <!-- Chat messages list -->
         <ScrollView x:Name="ChatScrollView" Grid.Row="1">
-            <CollectionView ItemsSource="{Binding Messages}"
-                          Margin="10">
+            <CollectionView x:Name="MessagesCollection" 
+                          ItemsSource="{Binding Messages}"
+                          Margin="10"
+                          ItemsUpdatingScrollMode="KeepLastItemInView">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="5" 

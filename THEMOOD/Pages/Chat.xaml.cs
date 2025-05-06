@@ -14,6 +14,31 @@ namespace THEMOOD.Pages
             InitializeComponent();
             _viewModel = (Chat_VM)BindingContext;
             _viewModel.Messages.CollectionChanged += Messages_CollectionChanged;
+            
+            // Scroll to bottom when view appears
+            this.Loaded += async (s, e) => await ScrollToBottom();
+        }
+
+        private async Task ScrollToBottom()
+        {
+            if (_isScrolling) return;
+
+            _isScrolling = true;
+            try
+            {
+                // Wait for the UI to update
+                await Task.Delay(100);
+                
+                if (_viewModel.Messages.Count > 0)
+                {
+                    // Scroll to the last item
+                    MessagesCollection.ScrollTo(_viewModel.Messages.Count - 1, animate: false);
+                }
+            }
+            finally
+            {
+                _isScrolling = false;
+            }
         }
 
         private async void Messages_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -26,9 +51,10 @@ namespace THEMOOD.Pages
                 try
                 {
                     // Wait for the UI to update
-                    await Task.Delay(50);
-                    // Scroll to the bottom
-                    await ChatScrollView.ScrollToAsync(0, ChatScrollView.ContentSize.Height, false);
+                    await Task.Delay(100);
+                    
+                    // Scroll to the last item
+                    MessagesCollection.ScrollTo(_viewModel.Messages.Count - 1, animate: false);
                 }
                 finally
                 {
