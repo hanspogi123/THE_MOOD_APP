@@ -51,6 +51,7 @@
                 Text="Add Mood"
                 Clicked="AddMood_Clicked"
                 HorizontalOptions="Center"
+                BackgroundColor="Pink"
                 VerticalOptions="Center" />
 
             <!-- Mood Entries Collection -->

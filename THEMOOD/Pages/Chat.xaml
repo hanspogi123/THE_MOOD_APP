@@ -8,39 +8,57 @@
         <viewmodels:Chat_VM />
     </ContentView.BindingContext>
 
-    <Grid RowDefinitions="*, Auto">
+    <Grid RowDefinitions="Auto, *, Auto">
+        <!-- Header with clear button -->
+        <Grid Grid.Row="0" 
+              ColumnDefinitions="*, Auto" 
+              Padding="10"
+              BackgroundColor="#f0a5ef">
+            <Label Text="Chat with AI" 
+                   FontSize="Large" 
+                   TextColor="Black"
+                   VerticalOptions="Center" />
+            <Button Grid.Column="1"
+                    Text="Clear Chat"
+                    Command="{Binding ClearConversationCommand}"
+                    BackgroundColor="#ff69b4"
+                    TextColor="White"
+                    Padding="10,5" />
+        </Grid>
+
         <!-- Chat messages list -->
-        <CollectionView Grid.Row="0" 
-                       ItemsSource="{Binding Messages}"
-                       Margin="10">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="5" 
-                          Margin="5" 
-                          ColumnDefinitions="*">
-                        <Frame BorderColor="#cb6ce6"
-                               CornerRadius="10"
-                               Padding="10"
-                               HasShadow="True"
-                               BackgroundColor="{Binding IsFromUser, Converter={StaticResource BoolToColorConverter}, ConverterParameter='LightBlue,White'}"
-                               HorizontalOptions="{Binding IsFromUser, Converter={StaticResource ItemAlignment}, ConverterParameter='End,Start'}">
-                            <StackLayout>
-                                <Label Text="{Binding Text}" 
-                                       TextColor="Black" 
-                                       FontSize="Medium" />
-                                <Label Text="{Binding Timestamp, StringFormat='{0:HH:mm}'}" 
-                                       TextColor="Gray" 
-                                       FontSize="Small"
-                                       HorizontalOptions="End" />
-                            </StackLayout>
-                        </Frame>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <ScrollView x:Name="ChatScrollView" Grid.Row="1">
+            <CollectionView ItemsSource="{Binding Messages}"
+                          Margin="10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="5" 
+                              Margin="5" 
+                              ColumnDefinitions="*">
+                            <Frame BorderColor="#cb6ce6"
+                                   CornerRadius="10"
+                                   Padding="10"
+                                   HasShadow="True"
+                                   BackgroundColor="{Binding IsFromUser, Converter={StaticResource BoolToColorConverter}, ConverterParameter='LightBlue,White'}"
+                                   HorizontalOptions="{Binding IsFromUser, Converter={StaticResource ItemAlignment}, ConverterParameter='End,Start'}">
+                                <StackLayout>
+                                    <Label Text="{Binding Text}"
+                                           TextColor="Black"
+                                           FontSize="Medium" />
+                                    <Label Text="{Binding Timestamp, StringFormat='{0:HH:mm}'}" 
+                                           TextColor="Gray" 
+                                           FontSize="Small"
+                                           HorizontalOptions="End" />
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
 
         <!-- Message input area -->
-        <Grid Grid.Row="1" 
+        <Grid Grid.Row="2" 
               ColumnDefinitions="*, Auto" 
               Padding="10" 
               BackgroundColor="#f0a5ef">

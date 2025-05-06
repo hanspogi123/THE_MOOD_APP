@@ -49,13 +49,12 @@
 
             <!-- Gradient Brush -->
             <LinearGradientBrush x:Key="MoodGradientBrush" StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Color="White" Offset="0.0" />
-                <GradientStop Color="LightPink" Offset="0.3" />
-                <GradientStop Color="#BA55D3" Offset="0.6" />
-                <!-- Light Purple -->
-                <GradientStop Color="#FF1493" Offset="1.0" />
-                <!-- Deep Pink -->
+                <GradientStop Color="LightPink" Offset="1.0" />
+                <GradientStop Color="Pink" Offset="0.5" />
+                <GradientStop Color="Beige" Offset="0.0" />
+                <!-- Deep Pink/Magenta -->
             </LinearGradientBrush>
+
 
             <!-- Style for Frame using the Brush -->
             <Style x:Key="FrameStyle" TargetType="Frame">
