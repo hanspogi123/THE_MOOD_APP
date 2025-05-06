@@ -6,6 +6,9 @@ namespace THEMOOD;
 
 public partial class MainPage : ContentPage
 {
+    private View _currentView;
+    private bool _isTransitioning;
+
     public MainPage()
     {
         InitializeComponent();
@@ -27,9 +30,42 @@ public partial class MainPage : ContentPage
         };
 
         // Hook up dynamic content loader
-        NavBarViewModel.SetMainPageContent = view =>
+        NavBarViewModel.SetMainPageContent = SetContentWithAnimation;
+    }
+
+    private async void SetContentWithAnimation(View newView)
+    {
+        if (newView == _currentView || _isTransitioning) return;
+
+        try
         {
-            MainContentArea.Content = view;
-        };
+            _isTransitioning = true;
+            await PageTransitionService.AnimatePageTransition(_currentView, newView, MainContentArea);
+            MainContentArea.Content = newView;
+            _currentView = newView;
+        }
+        finally
+        {
+            _isTransitioning = false;
+        }
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        if (_currentView != null && !_isTransitioning)
+        {
+            _currentView.Opacity = 0;
+            await _currentView.FadeTo(1, 150, Easing.Linear);
+        }
+    }
+
+    protected override async void OnDisappearing()
+    {
+        base.OnDisappearing();
+        if (_currentView != null && !_isTransitioning)
+        {
+            await PageTransitionService.AnimatePageExit(_currentView);
+        }
     }
 }

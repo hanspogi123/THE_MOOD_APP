@@ -11,7 +11,10 @@
                              ShouldAutoPlay="False"
                              Source="embed://Resources/Videos/meditate1.mp4"
                              ShouldShowPlaybackControls="True"
-                             HeightRequest="650" />
+                             ShouldKeepScreenOn="True"
+                             ShouldMute="False"
+                             HeightRequest="650"
+                             Aspect="AspectFit" />
 
         <ActivityIndicator x:Name="LoadingIndicator"
                           IsVisible="True"

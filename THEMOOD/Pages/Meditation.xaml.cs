@@ -19,18 +19,18 @@ public partial class Meditation : ContentView
 
     private void ContentView_Loaded(object sender, EventArgs e)
     {
-            LoadingIndicator.IsVisible = true;
-            LoadingIndicator.IsRunning = true;
+        LoadingIndicator.IsVisible = true;
+        LoadingIndicator.IsRunning = true;
 
-            // Delay loading video to improve app startup
-            Dispatcher.Dispatch(async () =>
-            {
-                await Task.Delay(500); // Give UI time to render
-                _isVideoLoaded = true;
-                LoadingIndicator.IsVisible = false;
-                LoadingIndicator.IsRunning = false;
-            });
-        
+        // Delay loading video to improve app startup
+        Dispatcher.Dispatch(async () =>
+        {
+            await Task.Delay(500); // Give UI time to render
+            _isVideoLoaded = true;
+            LoadingIndicator.IsVisible = false;
+            LoadingIndicator.IsRunning = false;
+        });
+
     }
 
     private void ContentView_Unloaded(object sender, EventArgs e)
