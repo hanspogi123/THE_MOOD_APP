@@ -29,6 +29,8 @@ namespace THEMOOD.ViewModels
             _viewCache["Chat"] = new Lazy<Microsoft.Maui.Controls.View>(() => new THEMOOD.Pages.Chat());
             _viewCache["MoodEntry"] = new Lazy<Microsoft.Maui.Controls.View>(() => new THEMOOD.Pages.MoodEntryPage());
             _viewCache["Meditation"] = new Lazy<Microsoft.Maui.Controls.View>(() => new THEMOOD.Pages.Meditation());
+            _viewCache["Voice"] = new Lazy<Microsoft.Maui.Controls.View>(() => new THEMOOD.Pages.Voice());
+            _viewCache["Home"] = new Lazy<Microsoft.Maui.Controls.View>(() => new THEMOOD.Pages.Home());
         }
 
         private bool _isHomeActive = true;
@@ -70,30 +72,33 @@ namespace THEMOOD.ViewModels
         [RelayCommand]
         private Task NavigateToHomeAsync()
         {
-            // Skip if already on this tab
-            if (IsHomeActive)
+            if (_currentViewKey == "Home")
                 return Task.CompletedTask;
 
             ResetAllTabs();
             IsHomeActive = true;
-            _currentViewKey = string.Empty;
+            _currentViewKey = "Home";
 
-            // We navigate through shell for Home
-            return Shell.Current.GoToAsync("//main");
+            // Use lazy-loaded view - will create the first time it's accessed
+            SetMainPageContent?.Invoke(_viewCache["Home"].Value);
+
+            return Task.CompletedTask;
         }
 
         [RelayCommand]
         private Task NavigateToWalletAsync()
         {
-            // Skip if already on this tab
-            if (IsWalletActive)
+            if (_currentViewKey == "Voice")
                 return Task.CompletedTask;
 
             ResetAllTabs();
             IsWalletActive = true;
-            _currentViewKey = string.Empty;
+            _currentViewKey = "Voice";
 
-            return Shell.Current.GoToAsync("//main");
+            // Use lazy-loaded view - will create the first time it's accessed
+            SetMainPageContent?.Invoke(_viewCache["Voice"].Value);
+
+            return Task.CompletedTask;
         }
 
         [RelayCommand]
@@ -172,6 +177,12 @@ namespace THEMOOD.ViewModels
 
             if (!_viewCache.ContainsKey("Meditation"))
                 _viewCache["Meditation"] = new Lazy<Microsoft.Maui.Controls.View>(() => new THEMOOD.Pages.Meditation());
+
+            if (!_viewCache.ContainsKey("Voice"))
+                _viewCache["Voice"] = new Lazy<Microsoft.Maui.Controls.View>(() => new THEMOOD.Pages.Voice());
+
+            if (!_viewCache.ContainsKey("Home"))
+                _viewCache["Home"] = new Lazy<Microsoft.Maui.Controls.View>(() => new THEMOOD.Pages.Voice());
 
             // Force garbage collection
             GC.Collect();
