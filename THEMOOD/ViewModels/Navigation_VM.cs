@@ -145,8 +145,9 @@ namespace THEMOOD.ViewModels
             IsProfileActive = true;
             _currentViewKey = "Meditation";
 
-            // Use lazy-loaded view - will create the first time it's accessed
-            SetMainPageContent?.Invoke(_viewCache["Meditation"].Value);
+            var meditationView = _viewCache["Meditation"].Value as THEMOOD.Pages.Meditation;
+            SetMainPageContent?.Invoke(meditationView);
+
 
             return Task.CompletedTask;
         }
@@ -182,7 +183,7 @@ namespace THEMOOD.ViewModels
                 _viewCache["Voice"] = new Lazy<Microsoft.Maui.Controls.View>(() => new THEMOOD.Pages.Voice());
 
             if (!_viewCache.ContainsKey("Home"))
-                _viewCache["Home"] = new Lazy<Microsoft.Maui.Controls.View>(() => new THEMOOD.Pages.Voice());
+                _viewCache["Home"] = new Lazy<Microsoft.Maui.Controls.View>(() => new THEMOOD.Pages.Home());
 
             // Force garbage collection
             GC.Collect();

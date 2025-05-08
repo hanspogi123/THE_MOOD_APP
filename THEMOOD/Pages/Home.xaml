@@ -5,12 +5,20 @@
 
     <ScrollView>
         <Grid>
-    <Label 
-            Text="HOME PAGE KUNO"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            <Label 
+                Text="HOME PAGE KUNO"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
 
-    <Button Text="Log Out" BackgroundColor="Crimson" TextColor="White" WidthRequest="150" HeightRequest="50"/>
+            <Button Text="Log Out" 
+                    BackgroundColor="Crimson" 
+                    TextColor="White" 
+                    WidthRequest="150" 
+                    HeightRequest="50"
+                    Clicked="OnLogoutClicked"
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    Margin="0,20,20,0"/>
         </Grid>
     </ScrollView>
 </ContentView>

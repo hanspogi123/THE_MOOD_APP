@@ -6,7 +6,6 @@
              x:Class="THEMOOD.MainPage"
              BackgroundImageSource="mainpage_bg.png">
 
-
     <Grid RowDefinitions="*, Auto">
         <!-- Dynamic Content Area -->
         <ContentPresenter x:Name="MainContentArea" Grid.Row="0" />
@@ -14,6 +13,5 @@
         <!-- NavBar -->
         <controls:CustomNavBar Grid.Row="1" x:Name="NavBar" />
     </Grid>
-
 
 </ContentPage>

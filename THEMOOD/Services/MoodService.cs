@@ -4,10 +4,10 @@ namespace THEMOOD.Services
 {
     public interface IMoodService
     {
-        List<MoodEntry> GetAllMoods();
-        MoodEntry GetMoodForDay(DateTime date);
-        void SaveMood(MoodEntry mood);
-        void DeleteMood(DateTime date);
+        Task<List<MoodEntry>> GetAllMoods();
+        Task<MoodEntry> GetMoodForDay(DateTime date);
+        Task SaveMood(MoodEntry mood);
+        Task DeleteMood(DateTime date);
     }
 
     public class MoodEntry
@@ -28,17 +28,17 @@ namespace THEMOOD.Services
             _moods = LoadMoods();
         }
 
-        public List<MoodEntry> GetAllMoods()
+        public async Task<List<MoodEntry>> GetAllMoods()
         {
             return _moods.OrderByDescending(m => m.Date).ToList();
         }
 
-        public MoodEntry GetMoodForDay(DateTime date)
+        public async Task<MoodEntry> GetMoodForDay(DateTime date)
         {
             return _moods.FirstOrDefault(m => m.Date.Date == date.Date);
         }
 
-        public void SaveMood(MoodEntry mood)
+        public async Task SaveMood(MoodEntry mood)
         {
             // Remove existing mood entry for this date if it exists
             var existing = _moods.FirstOrDefault(m => m.Date.Date == mood.Date.Date);
@@ -54,7 +54,7 @@ namespace THEMOOD.Services
             SaveMoods();
         }
 
-        public void DeleteMood(DateTime date)
+        public async Task DeleteMood(DateTime date)
         {
             var existing = _moods.FirstOrDefault(m => m.Date.Date == date.Date);
             if (existing != null)

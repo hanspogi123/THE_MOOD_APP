@@ -39,6 +39,7 @@
                        VerticalOptions="Center"
                        HorizontalOptions="Center"/>
                 <Entry Grid.Column="1"
+                       x:Name="NameEntry"
                        TextColor="Black"
                        Placeholder="Name"
                        Style="{StaticResource BaseEntryStyle}" />
@@ -53,6 +54,7 @@
                    VerticalOptions="Center"
                    HorizontalOptions="Center"/>
                 <Entry Grid.Column="1"
+                   x:Name="EmailEntry"
                    Style="{StaticResource EmailEntryStyle}" />
             </Grid>
 
@@ -65,6 +67,7 @@
                    VerticalOptions="Center"
                    HorizontalOptions="Center"/>
                 <Entry Grid.Column="1"
+                   x:Name="PasswordEntry"
                    TextColor="Black"
                    Style="{StaticResource PasswordEntryStyle}" />
             </Grid>
@@ -75,7 +78,8 @@
             <Button Text="⭐  Sign Up"
                     Style="{StaticResource LightButtonStyle}"
                     HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
+                    VerticalOptions="Center"
+                    Clicked="OnSignUpClicked"/>
 
             <!-- OR Separator -->
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">

@@ -32,5 +32,12 @@ namespace THEMOOD.Services
             await authLink.GetFreshAuthAsync();
             return authLink.FirebaseToken;
         }
+
+        public async Task SignOut()
+        {
+            // Firebase Auth doesn't require explicit sign out on the server side
+            // We just need to clear any local auth state
+            authProvider.Dispose();
+        }
     }
 }

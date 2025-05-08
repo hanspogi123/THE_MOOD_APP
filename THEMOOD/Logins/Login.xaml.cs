@@ -9,6 +9,7 @@ public partial class Login : ContentPage
     {
         InitializeComponent();
         _authService = new FirebaseAuthService();
+        _ = ConnectivityService.Instance;
     }
 
     private async void OnLoginClicked(object sender, EventArgs e)
@@ -17,6 +18,10 @@ public partial class Login : ContentPage
         {
             var auth = await _authService.SignIn(Email.Text, Password.Text);
             string token = await _authService.GetFreshToken(auth);
+            
+            // Initialize MoodEntryService with user ID
+            MoodEntryService.Instance.Initialize(auth.User.LocalId);
+            
             await DisplayAlert("Success", $"Welcome {auth.User.Email}", "OK");
             await Shell.Current.GoToAsync("//main");
         }

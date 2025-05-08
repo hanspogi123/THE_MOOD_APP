@@ -13,6 +13,9 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
 
+        // Initialize ConnectivityService
+        _ = ConnectivityService.Instance;
+
         // Inject NavBar ViewModel singleton
         NavBar.SetViewModel(NavBarViewModel.Instance);
 
